@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Аутентификация</title>
+</head>
+<body>
+<br><br>
+<h3><a href="/product">Посмотреть товары</a></h3>
+<br><br>
+<h3>Выполнить вход</h3>
+<form method="post" action="/process_login">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+<!--    <input type="checkbox" name="check_admin">Администратор-->
+<!--    <br>-->
+    <label for="username">Введите логин: </label><br>
+    <input type="text" placeholder="Введите ваш логин" name="username" id="username">
+    <br>
+    <label for="password">Введите пароль: </label>
+    <br>
+    <input type="password" placeholder="Введите ваш пароль" name="password" id="password">
+    <br>
+    <input type="submit" value="Войти">
+    <div th:if="${param.error}" style="color: red" >
+        Неправильный логин или пароль!
+    </div>
+</form>
+<br><br>
+<h3><a href="/registration">Зарегистрироваться</a></h3>
+
+<script th:inline="javascript">
+  var param = [[${param}]];
+  var param_error = [[${param.error}]];
+    console.log("param= ", param, "param.error= ", param_error );
+
+</script>
+</body>
+</html>
+

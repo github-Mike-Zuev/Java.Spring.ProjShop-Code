@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование заказа</title>
+</head>
+<body>
+<h2>Редактирование заказа</h2>
+
+<form th:method="POST" th:action="@{/admin/editOrder/{id}(id=${orderItem.getId()})}" th:object="${orderItem}" >
+    <br><br>
+    <fieldset>
+        <legend>Выбор операции</legend>
+        <label for="changeStatus">Изменить статус</label>
+        <input type="radio" id="changeStatus" name="operation" value="changeStatus">
+        <br>
+        <label for="cancel">Отменить</label>
+        <input type="radio" id="cancel" name="operation" value="cancel" checked>
+
+        <br>
+        <label for="createStatus">Создать новый статус: не реализоано</label>
+        <input type="radio" id="createStatus" name="underRealization" value="createStatus">
+
+        <br>
+        <label for="renameStatus">Переименовать статус: не реализоано</label>
+        <input type="radio" id="renameStatus" name="underRealization" value="renameStatus">
+
+        <br>
+        <label for="del">Удалить заказ/статус: не реализоано </label>
+        <input type="radio" id="del" name="operation" value="del">
+
+    </fieldset>
+    <br><br>
+<!--    <label for="newName">Новое название</label>-->
+<!--    <input name="newName" th:field="*{name}" id="newName" type="text">-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>-->
+<!--    <br><br>-->
+    <label for="newStatus">Выбор нового статуса </label>
+    <select name="newStatus" id="newStatus">
+        <div th:each="status : ${statuses}">
+            <option th:text="${status.getName()}" th:value="${status.getName()}"></option>
+        </div>
+    </select> <br><br>
+    <input type="submit" value="Выполнить операцию">
+</form>
+
+<hr>
+<h3>Информация о заказе</h3>
+<!--Подробности заказа (одна итерация в цикле)-->
+<div th:each="order : ${orderItem}">
+    <h3 th:text="'Заказ №' + ${order.getNumber()}"></h3>
+    <img th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"  width="50px">
+    <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}">
+    <p th:text="'Количество: ' + ${order.getCount()}">
+    <p th:text="'Сумма: ' + ${order.getPrice()} +'руб.' ">
+    <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
+    <p th:text="'Cтатус: ' + ${order.getStatus().getName()}">
+    <p th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' ">
+</div>
+<br><br>
+<a href="/admin/orders">Вернуться</a>
+</body>
+</html>

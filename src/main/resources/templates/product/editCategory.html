@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Изменить категорию товара</title>
+</head>
+<body>
+<h2>Изменить категорию товара</h2>
+<form th:method="POST" th:action="@{/admin/product/category}" th:object="${new_category}" >
+  <br><br>
+  <fieldset>
+    <legend>Выбор операции</legend>
+    <label for="new">Добавить</label>
+    <input type="radio" id="new" name="operation" value="new" checked>
+    <label for="edit">Переименовать</label>
+    <input type="radio" id="edit" name="operation" value="edit">
+    <label for="del">Удалить</label>
+    <input type="radio" id="del" name="operation" value="del">
+
+  </fieldset>
+  <br><br>
+  <label for="newName">Новое название</label>
+  <input name="newName" th:field="*{name}" id="newName" type="text">
+  <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
+  <!--    <input name="newName" id="newName" type="text">-->
+  <br><br>
+  <label for="category">Выбор категории</label>
+  <select name="categoryId" id="category">
+    <div th:each="category : ${categories}">
+      <option th:text="${category.getName()}" th:value="${category.getId()}"></option>
+    </div>
+  </select> <br><br>
+  <input type="submit" value="Выполнить">
+</form>
+<br><br>
+<a href="/product">Перейти к товарам</a>
+</body>
+</html>
