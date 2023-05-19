@@ -9,11 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import spring.attest.zuev.enumm.PersonRoles;
-import spring.attest.zuev.models.Category;
-import spring.attest.zuev.models.Image;
-import spring.attest.zuev.models.Person;
-import spring.attest.zuev.models.Product;
+import spring.attest.zuev.models.*;
 import spring.attest.zuev.services.*;
+import spring.attest.zuev.util.StatusesValidator;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +25,7 @@ public class AdminController {
     @Value("${upload.path}")
     /** путь сохранения фотографий изделий */
     private  String uploadPath;
+    private final StatusesValidator statusesValidator;
 
     private final ProductService productService;
     private final CategoryService categoryService;
@@ -34,7 +33,8 @@ public class AdminController {
     private final StatusesService statusesService;
     private final PersonService personService;
     @Autowired
-    public AdminController(ProductService productService, CategoryService categoryService, OrderService orderService, StatusesService statusesService, PersonService personService) {
+    public AdminController(StatusesValidator statusesValidator, ProductService productService, CategoryService categoryService, OrderService orderService, StatusesService statusesService, PersonService personService) {
+        this.statusesValidator = statusesValidator;
         this.productService = productService;
         this.categoryService = categoryService;
         this.orderService = orderService;
@@ -189,7 +189,38 @@ public class AdminController {
         return "redirect:/admin";
     }
     /** ###################################################################### */
-    /** ####### Методы администрирования заказов /admin/orders ########################## */
+    /** ####### Методы редактирования статусов заказа  /admin/statuses ##### */
+    @GetMapping("/statuses")
+    /**Просмотр статусов заказов */
+    public String editStatuses(Model model){
+        model.addAttribute("statuses", statusesService.getAllStatuses());
+        return "admin/statuses";
+    }
+    @GetMapping("/editStatuses/{id}")
+    /**Редактирование статусов заказа (схоже с editCategory)*/
+    public String editStatuses(Model model, @PathVariable("id") int id){ //, @ModelAttribute("newStatus") Statuses newStatus)
+      //  model.addAttribute("statuses", statusesService.getAllStatuses());
+        model.addAttribute("chosenStatus", statusesService.getStatusesById(id));
+        return "admin/editStatuses";
+    }
+    @PostMapping("/editStatuses/{id}")
+    public String editStatuses(@RequestParam("operation")String operation, @PathVariable("id") int id, @ModelAttribute("chosenStatus") @Valid Statuses newStatus, BindingResult bindingResult, Model model){
+        statusesValidator.validate(newStatus, bindingResult); /** передаём в .validate() 2 объекта:  объект newStatus и созданный объект ошибки.*/
+        /** ошибка именования статуса **/
+        if (bindingResult.hasErrors() && (operation.equals("new") || operation.equals("edit"))){
+            return "admin/editStatuses";
+        }
+      //  System.out.println(">>>>>> операция: "+operation+" ID : "+id+"-"+newStatus.getName()+"-"+newStatus.getId()+"-"+newStatus.getName()); //test
+            /** Дополнить проверкой уникальности имени категории @UniqueElements(message = "Такая категория уже есть") // мешает начальному запуску с пустым списком. Заменено на автопереименование с ID в имени
+             return "/product/editCategory"; */
+        statusesService.editStatuses(operation, id, newStatus);
+        return "redirect:/admin";
+    }
+
+
+
+    /** ###################################################################### */
+    /** ####### Методы администрирования заказов /admin/orders ############# */
     @GetMapping("/orders")
     /** просмотро заказов */
     public String adminOrders(Model model){
@@ -208,7 +239,7 @@ public class AdminController {
     public String editOrder(@RequestParam("operation")String operation, @RequestParam("newStatus")String newStatus, Model model, @PathVariable("id") int orderId){
         model.addAttribute("orderItem", orderService.getOrderById(orderId));
 
-        orderService.editStatuses(operation, orderId, statusesService.getStatusByName(newStatus));
+        orderService.editOrder(operation, orderId, statusesService.getStatusByName(newStatus));
 //    похоже на categoryService.editCategory(operation, categoryService.getCategoryById(id));
 
         return "redirect:/admin/orders";
@@ -252,4 +283,6 @@ public class AdminController {
         personService.changePerson(person);
         return "/admin/infoPerson";
     }
+
+
 }

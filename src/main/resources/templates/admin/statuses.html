@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Просмотр статусов заказов</title>
+</head>
+<body>
+<h1>Просмотр статусов заказов</h1>
+<br><br>
+<a th:href="@{/admin}">Вернуться</a>
+<br><br><br><br>
+<hr>
+<br><br>
+<h3>Статусоы заказов:</h3>
+<div th:each="status : ${statuses}" >
+  <br>
+  <a th:href="@{/admin/editStatuses/{id}(id=${status.getId()})}" th:text="${status.getName()}"></a>
+  <p th:text="'Описание: ' + ${status.getStatusDescription()}"></p>
+  <hr>
+
+</div>
+</body>
+</html>

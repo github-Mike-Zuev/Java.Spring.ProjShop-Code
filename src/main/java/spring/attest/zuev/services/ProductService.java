@@ -1,5 +1,6 @@
 package spring.attest.zuev.services;
 
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -200,7 +201,13 @@ public class ProductService {
         float totalCart = totalCartPerson();
         /** получение уникальной строки имени */
         String uuid = UUID.randomUUID().toString();
+        /** Начальный статус заказа - "Принят" - по умолчанию  */
         Statuses status = statusesRepository.findByName("Принят");
+        if ( status == null) { /** если статус "Принят" - утерян в БД -> восстановление */
+            statusesRepository.save(new Statuses(01,"Принят"));
+            status = statusesRepository.findByName("Принят");
+        }
+      //  System.out.println(status.getId()+"-"+status.getName()); //test
         /** цикл по продуктам в корзине текущего польз-ля */
         for(Product product : cart()){
             /** строка корзины по польз-лю и продукту для получения количества */

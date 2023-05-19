@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Редактирование статусов заказа</title>
+</head>
+<body>
+<h2>Редактирование статусов заказа</h2>
+<form th:method="POST" th:action="@{/admin/editStatuses/{id}(id=${chosenStatus.getId()})}" th:object="${chosenStatus}" >
+  <br><br>
+  <fieldset>
+    <legend>Выбор операции</legend>
+    <label for="new">Добавить</label>
+    <input type="radio" id="new" name="operation" value="new" checked>
+    <label for="edit">Переименовать</label>
+    <input type="radio" id="edit" name="operation" value="edit">
+    <label for="del">Удалить</label>
+    <input type="radio" id="del" name="operation" value="del">
+
+  </fieldset>
+
+  <br><br>
+<!--  <label for="statusId">Выбор статуса</label>-->
+<!--  <select name="statusId" id="statusId">-->
+<!--    <div th:each="status : ${statuses}">-->
+<!--      <option th:text="${status.getName()}" th:value="${status.getId()}"></option>-->
+<!--    </div>-->
+<!--  </select> <br><br>-->
+  <label for="newName">Новое название статуса</label>
+  <input name="newName" th:field="*{name}" id="newName" type="text">
+  <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
+  <br><br>
+  <label for="statusDescription">Описанеие статуса</label>
+  <textarea name="statusDescription" th:field="*{statusDescription}" id="statusDescription" type=""  placeholder="Описание"></textarea>
+  <div style="color: red" th:if="${#fields.hasErrors('statusDescription')}" th:errors="*{statusDescription}" ></div>
+  <br><br>
+  <input type="submit" value="Выполнить">
+</form>
+<br><br>
+<a href="/admin">Отменить и вернуться</a>
+</body>
+</html>

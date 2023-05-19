@@ -32,7 +32,7 @@ public class OrderService {
 
     @Transactional
     /**  редактирование заказов */
-    public void editStatuses (String operation, int orderId, Statuses newStatus) {
+    public void editOrder(String operation, int orderId, Statuses newStatus) {
         /**Выбор операции: changeStatus -менять статус,  cancel-отмена, del-не реализовано,, */
 
         switch (operation) {
