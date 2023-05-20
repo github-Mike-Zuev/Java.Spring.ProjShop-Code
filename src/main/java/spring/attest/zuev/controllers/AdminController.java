@@ -12,6 +12,7 @@ import spring.attest.zuev.enumm.PersonRoles;
 import spring.attest.zuev.models.*;
 import spring.attest.zuev.services.*;
 import spring.attest.zuev.util.CategoryValidator;
+import spring.attest.zuev.util.ProductValidator;
 import spring.attest.zuev.util.StatusesValidator;
 
 import java.io.File;
@@ -27,6 +28,7 @@ public class AdminController {
     /** путь сохранения фотографий изделий */
     private  String uploadPath;
     private final StatusesValidator statusesValidator;
+    private final ProductValidator productValidator;
     private final CategoryValidator categoryValidator;
 
     private final ProductService productService;
@@ -35,8 +37,9 @@ public class AdminController {
     private final StatusesService statusesService;
     private final PersonService personService;
     @Autowired
-    public AdminController(StatusesValidator statusesValidator, CategoryValidator categoryValidator, ProductService productService, CategoryService categoryService, OrderService orderService, StatusesService statusesService, PersonService personService) {
+    public AdminController(StatusesValidator statusesValidator, ProductValidator productValidator, CategoryValidator categoryValidator, ProductService productService, CategoryService categoryService, OrderService orderService, StatusesService statusesService, PersonService personService) {
         this.statusesValidator = statusesValidator;
+        this.productValidator = productValidator;
         this.categoryValidator = categoryValidator;
         this.productService = productService;
         this.categoryService = categoryService;
@@ -88,6 +91,12 @@ public class AdminController {
     }
     @PostMapping ("/product/add") /** добавление нового товара */
     public String addProduct(Model model, @ModelAttribute("product") @Valid Product product, BindingResult bindingResult, @RequestParam("file_one") MultipartFile file_one, @RequestParam("file_two")MultipartFile file_two, @RequestParam("file_three")MultipartFile file_three, @RequestParam("file_four")MultipartFile file_four, @RequestParam("file_five")MultipartFile file_five) throws IOException {
+
+
+        /** передаём в detailedValidate - 3 объекта:  объект прокукт, созданный объект ошибки и название операции (в .validate()-2)*/
+        productValidator.detailedValidate(product, bindingResult, "new");
+
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("category", categoryService.findAllCategory());
             return "product/addProduct";
@@ -171,8 +180,17 @@ public class AdminController {
     }
     @GetMapping ("/product/delete/{id}")
     /** Удаление продукта */
-    public String deleteProduct(@PathVariable("id") int id){
-        productService.delete(id);
+    public String deleteProduct(@PathVariable("id") int id, Model model){
+        model.addAttribute("product", productService.getProductId(id));
+        return "product/deleteProduct";
+    }
+    @PostMapping("/product/delete/{id}")
+     public String deleteProduct(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult) {//@PathVariable("id") int id,
+        productValidator.detailedValidate(product, bindingResult, "del");
+        if(bindingResult.hasErrors()){
+            return "product/deleteProduct";
+        }
+       productService.delete(product.getId());
         return "redirect:/admin";
     }
 
@@ -184,7 +202,10 @@ public class AdminController {
         return "product/editProduct";
     }
     @PostMapping("/product/edit/{id}")
+    /** обработка ошибки дублирования имён ПРОДУКТОВ TITLE - detailedValidate (повторения имён в одноимённой категории - не разрешены  )**/
     public String editProduct (Model model, @ModelAttribute("product") @Valid Product product, BindingResult bindingResult, @PathVariable("id") int id){
+        /** передаём в detailedValidate - 3 объекта:  объект прокукт, созданный объект ошибки и название операции (в .validate()-2)*/
+        productValidator.detailedValidate(product, bindingResult, "edit");
         if(bindingResult.hasErrors()){
             model.addAttribute("category", categoryService.findAllCategory());
             return "product/editProduct";
@@ -215,12 +236,11 @@ public class AdminController {
         /** ошибка именования статуса **/
         if (bindingResult.hasErrors() ){// перенесено в detailedValidate // && (operation.equals("new") || operation.equals("edit"))){
             return "admin/editStatuses";
-        }/** если editStatuses возвращает ошибку - добавление её в bindingResult, иначе "no errors" editStatuses - выполнит операцию */
+        }  // заменено detailedValidate /** если editStatuses возвращает ошибку - добавление её в bindingResult, иначе "no errors" editStatuses - выполнит операцию */
         //  перенесено в detailedValidate // String txtErrors = statusesService.editStatuses(operation, id, newStatus); if (txtErrors != "no errors" ){ObjectError error = new ObjectError("error", txtErrors); bindingResult.addError(error); return "admin/editStatuses"; }
         statusesService.editStatuses(operation, newStatus);
         return "redirect:/admin/statuses";
     }
-
 
 
     /** ###################################################################### */

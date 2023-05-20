@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Подтверждение удаления продукта</title>
+</head>
+<body>
+<h3>Подтвердите удаление продукта</h3>
+<br>
+<form th:method="POST" th:action="@{/admin/product/delete/{id}(id=${product.getId()})}" th:object="${product}" >
+  <br>
+<!--  <p th:text="'Категория: ' + ${product.category.name}"></p>-->
+  <br>
+  <label for="cat">Категория товара: </label>
+  <input  type="text" th:field="*{category}" placeholder="Наименование" id="cat">
+
+  <br>
+  <label for="title">Наименование товара: </label>
+  <input  type="text" th:field="*{title}" placeholder="Наименование" id="title">
+  <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+
+  <br>
+  <br>
+  <label for="description">Описание товара: </label>
+  <textarea  th:field="*{description}" placeholder="Описание" id="description"></textarea>
+  <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+
+  <br>
+  <br>
+  <label for="price">Цена товара: </label>
+  <input  type="number" th:field="*{price}"  step=0.01 id="price">
+  <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+
+  <br>
+  <br>
+  <label for="warehouse">Склад: </label>
+  <input  type="text" th:field="*{warehouse}" placeholder="Склад" id="warehouse">
+  <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
+
+  <br>
+  <br>
+  <label for="seller">Данные о продавце: </label>
+  <textarea  th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
+  <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
+
+  <br>
+  <br>
+  <input type="submit" value="Удалить продукт">
+  <br><br>
+  <a href="/admin">Отмена</a>
+</form>
+</body>
+</html>

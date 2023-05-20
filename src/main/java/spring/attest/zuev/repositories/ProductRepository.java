@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+    List<Product> findAllByTitleAndCategory(String title, Category category);
     List<Product> findByTitleContainingIgnoreCase(String name);
     List<Product> findAllByCategory(Category category);
     /** подсчёт итоговой стоимости товаров корзины sum(кол-во*цену) по ID польз-ля **/

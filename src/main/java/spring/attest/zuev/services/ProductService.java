@@ -2,6 +2,7 @@ package spring.attest.zuev.services;
 
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -38,8 +39,12 @@ public class ProductService {
     public List<Product> getAllProductByCategory(Category category){
         return productRepository.findAllByCategory(category);
     }
-    /** получение текущего пользователя из контекста аутентификации*/
+    /** передача спмска товаров одного имени из определённой категории (для валидации повторений - повторения имён в одноимённой категории - не разрешены) */
+    public List<Product> getListProductByTitleAndCategory (String title, Category category){
+        return productRepository.findAllByTitleAndCategory(title, category);
+    }
 
+    /** получение текущего пользователя из контекста аутентификации*/
     public Person getCurrentPerson() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
@@ -123,6 +128,7 @@ public class ProductService {
     @Transactional
     public void updateProduct (int id, Product product){
         product.setId(id);
+        product.setDateTime(productRepository.findById(id).orElse(null).getDateTime());
         productRepository.save(product);
     }
     @Transactional

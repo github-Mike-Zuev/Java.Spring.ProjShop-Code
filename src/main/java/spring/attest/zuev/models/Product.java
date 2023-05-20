@@ -14,7 +14,7 @@ public class Product {
     @Column(name="id")
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name="title", nullable = false, columnDefinition = "text", unique = true)
+    @Column(name="title", nullable = false, columnDefinition = "text")//, unique = true
     @NotEmpty(message = "Укажите наименование товара")
     private String title;
     @Column(name = "description", nullable = false, columnDefinition = "text")
@@ -50,7 +50,7 @@ public class Product {
         dateTime = LocalDateTime.now();
     }
     /** поле даты создания */
-    private LocalDateTime getDateTime() {
+    public LocalDateTime getDateTime() {
         return dateTime;
     }
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")

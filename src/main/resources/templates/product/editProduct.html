@@ -6,7 +6,7 @@
 </head>
 <body>
 <h3>Редактирование информации о продукте</h3>
-<form th:method="POST" th:action="@{/admin/product/edit/{id}(id=${product.getId()})}" th:object="${product}" >
+<form name="editProduct" th:method="POST" th:action="@{/admin/product/edit/{id}(id=${product.getId()})}" th:object="${product}" >
   <label for="category">Укажите категорию</label>
   <select name="category" th:field="*{category}"  id="category">
     <div th:each="row : ${category}" >
