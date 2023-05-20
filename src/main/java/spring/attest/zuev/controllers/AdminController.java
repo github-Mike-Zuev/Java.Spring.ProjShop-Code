@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import spring.attest.zuev.enumm.PersonRoles;
 import spring.attest.zuev.models.*;
 import spring.attest.zuev.services.*;
+import spring.attest.zuev.util.CategoryValidator;
 import spring.attest.zuev.util.StatusesValidator;
 
 import java.io.File;
@@ -26,6 +27,7 @@ public class AdminController {
     /** путь сохранения фотографий изделий */
     private  String uploadPath;
     private final StatusesValidator statusesValidator;
+    private final CategoryValidator categoryValidator;
 
     private final ProductService productService;
     private final CategoryService categoryService;
@@ -33,8 +35,9 @@ public class AdminController {
     private final StatusesService statusesService;
     private final PersonService personService;
     @Autowired
-    public AdminController(StatusesValidator statusesValidator, ProductService productService, CategoryService categoryService, OrderService orderService, StatusesService statusesService, PersonService personService) {
+    public AdminController(StatusesValidator statusesValidator, CategoryValidator categoryValidator, ProductService productService, CategoryService categoryService, OrderService orderService, StatusesService statusesService, PersonService personService) {
         this.statusesValidator = statusesValidator;
+        this.categoryValidator = categoryValidator;
         this.productService = productService;
         this.categoryService = categoryService;
         this.orderService = orderService;
@@ -58,13 +61,14 @@ public class AdminController {
     }
     @PostMapping("/product/category")
     public String editCategory(@RequestParam("operation")String operation, @RequestParam("categoryId") String categoryId, @ModelAttribute("new_category") @Valid Category newCategory, BindingResult bindingResult, Model model){
+        categoryValidator.validate(newCategory, bindingResult);/** передаём в .validate() 2 объекта: сам объект категории и созданный объект ошибки.*/
         int id = Integer.parseInt(categoryId);
         /** ошибка именования категории **/
         if (bindingResult.hasErrors() && (operation.equals("new") || operation.equals("edit"))){
             model.addAttribute("categories", categoryService.findAllCategory());
 
-            /** Дополнить проверкой уникальности имени категории @UniqueElements(message = "Такая категория уже есть") // мешает начальному запуску с пустым списком. Заменено на автопереименование с ID в имени
-            return "/product/editCategory"; */
+            /**реализовано валидатором: Дополнить проверкой уникальности имени категории замена - @UniqueElements(message = "Такая категория уже есть") // мешает начальному запуску с пустым списком. или заменить  на автопереименование с ID в имени*/
+            return "/product/editCategory";
         }
 //        System.out.println(">>>>>> операция: "+operation+" ID категории: "+categoryId); // посмотреть id категории
 //        System.out.println(">>>>>>> Категория>"+categoryService.editCategory(operation, categoryService.getCategoryById(id), newCategory));
@@ -204,17 +208,17 @@ public class AdminController {
         return "admin/editStatuses";
     }
     @PostMapping("/editStatuses/{id}")
-    public String editStatuses(@RequestParam("operation")String operation, @PathVariable("id") int id, @ModelAttribute("chosenStatus") @Valid Statuses newStatus, BindingResult bindingResult, Model model){
-        statusesValidator.validate(newStatus, bindingResult); /** передаём в .validate() 2 объекта:  объект newStatus и созданный объект ошибки.*/
+    public String editStatuses(@RequestParam("operation")String operation, @ModelAttribute("chosenStatus") @Valid Statuses newStatus, BindingResult bindingResult){ // @PathVariable("id") int id,
+        //  System.out.println(">>>>>> операция: "+operation+" ID : "+id+"-"+newStatus.getName()+"-"+newStatus.getId()+"-"+newStatus.getName()); //test
+        /** обработка ошибки дублирования имён статусов - detailedValidate (также не разрешается удалять начальный статус заказа "Принят" и не разрешается удалять если в заказах имеется удаляемый статус;  )**/
+        statusesValidator.detailedValidate(newStatus, bindingResult, operation); /** передаём в .validate() 2 объекта:(detailedValidate - 3)  объект newStatus и созданный объект ошибки.*/
         /** ошибка именования статуса **/
-        if (bindingResult.hasErrors() && (operation.equals("new") || operation.equals("edit"))){
+        if (bindingResult.hasErrors() ){// перенесено в detailedValidate // && (operation.equals("new") || operation.equals("edit"))){
             return "admin/editStatuses";
-        }
-      //  System.out.println(">>>>>> операция: "+operation+" ID : "+id+"-"+newStatus.getName()+"-"+newStatus.getId()+"-"+newStatus.getName()); //test
-            /** Дополнить проверкой уникальности имени категории @UniqueElements(message = "Такая категория уже есть") // мешает начальному запуску с пустым списком. Заменено на автопереименование с ID в имени
-             return "/product/editCategory"; */
-        statusesService.editStatuses(operation, id, newStatus);
-        return "redirect:/admin";
+        }/** если editStatuses возвращает ошибку - добавление её в bindingResult, иначе "no errors" editStatuses - выполнит операцию */
+        //  перенесено в detailedValidate // String txtErrors = statusesService.editStatuses(operation, id, newStatus); if (txtErrors != "no errors" ){ObjectError error = new ObjectError("error", txtErrors); bindingResult.addError(error); return "admin/editStatuses"; }
+        statusesService.editStatuses(operation, newStatus);
+        return "redirect:/admin/statuses";
     }
 
 
@@ -241,7 +245,6 @@ public class AdminController {
 
         orderService.editOrder(operation, orderId, statusesService.getStatusByName(newStatus));
 //    похоже на categoryService.editCategory(operation, categoryService.getCategoryById(id));
-
         return "redirect:/admin/orders";
     }
     /** поиск заказов по имени - по 4 последним буквам */

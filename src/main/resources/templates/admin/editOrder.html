@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Редактирование заказа</title>
+    <title>Редактирование строки заказа</title>
 </head>
 <body>
-<h2>Редактирование заказа</h2>
+<h2>Редактирование строки заказа</h2>
 
 <form th:method="POST" th:action="@{/admin/editOrder/{id}(id=${orderItem.getId()})}" th:object="${orderItem}" >
     <br><br>
@@ -16,17 +16,13 @@
         <br>
         <label for="cancel">Отменить</label>
         <input type="radio" id="cancel" name="operation" value="cancel" checked>
-
         <br>
-        <label for="createStatus">Создать новый статус: не реализоано</label>
-        <input type="radio" id="createStatus" name="underRealization" value="createStatus">
-
-        <br>
-        <label for="renameStatus">Переименовать статус: не реализоано</label>
-        <input type="radio" id="renameStatus" name="underRealization" value="renameStatus">
-
-        <br>
-        <label for="del">Удалить заказ/статус: не реализоано </label>
+<!--        перенесено в editStatuses:-->
+<!--        <label for="createStatus">Создать новый статус: не реализоано</label>-->
+<!--        <input type="radio" id="createStatus" name="underRealization" value="createStatus"><br>-->
+<!--        <label for="renameStatus">Переименовать статус: не реализоано</label>-->
+<!--        <input type="radio" id="renameStatus" name="underRealization" value="renameStatus"><br>-->
+        <label for="del">Удалить эту строку заказа</label>
         <input type="radio" id="del" name="operation" value="del">
 
     </fieldset>

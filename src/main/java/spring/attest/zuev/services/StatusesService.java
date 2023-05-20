@@ -45,58 +45,35 @@ public class StatusesService {
     public Statuses getStatusByName(String name){
         return statusesRepository.findByName(name);
     }
+//    public List<Statuses> getAllStatusesByName(String name){
+//        return statusesRepository.List<Statuses> getAllByName(String name);
+//    }
     /** передача всех статусов */
     public List<Statuses> getAllStatuses(){
         return statusesRepository.findAll();
     }
     @Transactional // @Modifying
     /** Редактирование статусов заказа (схоже с editCategory) new, del, edit */
-    public void editStatuses(String operation, int id, Statuses newStatus) {
+    public String editStatuses(String operation, Statuses newStatus) {
 
         switch (operation) {
             case "del":
-                if (!newStatus.getName().equals("Принят")) {
-                    /** не разрешается удалять начальный статус заказа "Принят" */
-
-                    /** не удалять если в заказах имеется удаляемый статус **/
-                    statusesRepository.delete(newStatus);
-//                if (this.haveChildren(category)) return "Нельзя удалить категорию имеющую товары";
-//                categoryRepository.delete(category);
-//                return "Категория удалена";
-                }
+                /**  if (newStatus.getName().equals("Принят")) {- перенесено в detailedValidate
+                   не разрешается удалять начальный статус заказа "Принят"
+                    return "не разрешается удалять начальный статус заказа \"Принят\"";}*/
+               statusesRepository.delete(newStatus);
                 break;
             case "edit":
-                statusesRepository.save(newStatus);
-//                category.setName(newCategory.getName());
-//                categoryRepository.save(category);
+//   /** проверка дублирования при переименовании - перенесено в detailedValidate*/
+                    statusesRepository.save(newStatus);
+                break;
+            case "new":
+                Statuses status = new Statuses(newStatus.getName(), newStatus.getStatusDescription());
+                statusesRepository.save(status);
                 break;
                 }
-                return;
-
-
+                return "no errors";
         }
         /** ниже удалить*/
-//    @Transactional
-//    public String editCategory (String operation, Category category, Category newCategory) {
-//        if (operation.equals("new")) {
-//            newCategory.setPersonOwner(currentPerson());
-//            categoryRepository.save(newCategory);
-//            return "Категория создана";
-//        }/* изменение/удаление не админом и не создателем категории */
-//        if(!isAdmin() && (!category.getPersonOwner().equals(currentPerson()) )) return "Нет прав для изменения/удаления.";
-//        switch (operation) {
-//            case "del":
-//                /**  разрешается удалять последний элемент// if () return "Нельзя удалять  единственный элемент"; */
-//                /** не удалять если в категории есть товары **/
-//                if (this.haveChildren(category)) return "Нельзя удалить категорию имеющую товары";
-//                categoryRepository.delete(category);
-//                return "Категория удалена";
-//            case "edit": category.setName(newCategory.getName());
-//                categoryRepository.save(category);
-//                return "Категория изменена";
-//        }
-//        return "Не выполнено";
-//    }
-
 
 }

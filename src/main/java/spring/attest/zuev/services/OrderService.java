@@ -31,18 +31,20 @@ public class OrderService {
     }
 
     @Transactional
-    /**  редактирование заказов */
+    /**  редактирование заказов (отдельно по каждой записи-строке заказа)*/
     public void editOrder(String operation, int orderId, Statuses newStatus) {
-        /**Выбор операции: changeStatus -менять статус,  cancel-отмена, del-не реализовано,, */
-
+        /**Выбор операции: changeStatus -менять статус,  cancel-отмена, del */
+        Order chosenOrder = orderRepository.findById(orderId).orElse(null);
         switch (operation) {
-            case "changeStatus": /**  менять статус (изменение статуса отдельно по каждой записи*/
-                orderRepository.findById(orderId).orElse(null).setStatuses(newStatus);
+            case "changeStatus": /**  изменение статуса записи-строки заказа */
+               chosenOrder.setStatuses(newStatus);
                // System.out.println("====>"+ orderRepository.findById(orderId).orElse(null).getStatuses().getName() ); //тест
-            case "del":
+                break;
+            case "del": /** удаление выбранной строки заказа */
+                orderRepository.delete(chosenOrder);
+                break;
             case "cancel":
             default:
-
         }
     }
 /** поиск в заказах по последним символам заказа (добавить сортировку и фильтры)  */

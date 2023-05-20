@@ -32,6 +32,8 @@ public class CategoryService {
     public Category getCategoryById(int id){
         return categoryRepository.findById(id);
     }
+    /** поик категории по имени (для валидатора CategoryValidator - на дублирование) */
+    public Category getCategoryByName(String name){ return categoryRepository.findByName(name);}
     @Transactional
     public void addCategory (Category category){
         categoryRepository.save(category);

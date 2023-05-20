@@ -26,7 +26,14 @@
 <!--      <option th:text="${status.getName()}" th:value="${status.getId()}"></option>-->
 <!--    </div>-->
 <!--  </select> <br><br>-->
-  <label for="newName">Новое название статуса</label>
+
+  <!--    <p style="color: red" th:text="${error}"></p>-->
+  <div th:if="${#fields.hasErrors('global')}"> <!-- 'global'- в глоб.массиве ошибок- bindingResult -->
+    <small th:each="err :${#fields.errors('global')}" th:text="${err}" style="color:red"></small>
+  </div>
+
+    <p th:text="'Редактируемый статус: \'' + ${chosenStatus.getName()} +'\', id: '+${chosenStatus.getId()}"></p>
+    <label for="newName">Новое название статуса</label>
   <input name="newName" th:field="*{name}" id="newName" type="text">
   <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
   <br><br>
@@ -37,6 +44,6 @@
   <input type="submit" value="Выполнить">
 </form>
 <br><br>
-<a href="/admin">Отменить и вернуться</a>
+<a href="/admin/statuses">Отменить и вернуться а статусам</a>
 </body>
 </html>

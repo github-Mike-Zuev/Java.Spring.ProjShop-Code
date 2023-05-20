@@ -10,7 +10,7 @@ import java.util.List;
 public interface StatusesRepository extends JpaRepository<Statuses, Integer> {
     Statuses findByName(String name);
 //        Statuses findById(int id);
-//   List<Statuses> getAllBy();
+ //  List<Statuses> getAllByName(String name);
  //   int countAll();
 
 

@@ -33,6 +33,11 @@ public class Statuses {
         this.name = name;
     }
 
+    public Statuses(String name, String statusDescription) {
+        this.name = name;
+        this.statusDescription = statusDescription;
+    }
+
     public int getId() {
         return id;
     }

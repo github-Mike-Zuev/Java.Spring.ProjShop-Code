@@ -12,7 +12,7 @@
 <br><br><br><br>
 <hr>
 <br><br>
-<h3>Статусоы заказов:</h3>
+<h3>Статусы заказов:</h3>
 <div th:each="status : ${statuses}" >
   <br>
   <a th:href="@{/admin/editStatuses/{id}(id=${status.getId()})}" th:text="${status.getName()}"></a>
