@@ -1,0 +1,186 @@
+body{    background: linear-gradient(45deg, rgb(255, 165, 0), rgb(255, 215, 0), rgb(184, 134, 11), rgb(255, 69, 0));}
+h1, h2, h3, h4{text-align: center; margin-top: 4%; }
+.overflow-auto{overflow: auto;}
+.word-break{
+    word-wrap: break-word;
+    /*width: 100%; !* .break-element{  *!*/
+}
+img{ float: right;}
+img:hover{ transform: scale(5);}
+.main-grid, .form1{
+
+    margin: 1% 2% 1%; /*  margin: 5% 5% 20%; //05.22 */
+    box-shadow: coral -5px -10px 30px 20px;   /* //05.22 */
+    border-radius: 5px; /* //05.22 */
+    display: grid;
+    /*grid-auto-flow: column ;*/
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 120px;
+    /*overflow: auto; overflow: scroll; // hidden; //no 05.22*/
+    text-align: center;
+    /*align-items: stretch;*/
+     align-items: center;/* 05.21 */
+
+    column-gap: 1%;
+    row-gap: 2%;
+}
+.form1{
+    gap: 20px 2%;
+    grid-auto-rows: 180px;
+    grid-template-columns: repeat(3, 32%);
+    /*grid-template-columns: 33% auto;*/
+    justify-items: center; /* 05.22 */
+}
+
+.element, .inp{
+    font: 300 larger "Malgun Gothic", fantasy, monospace;
+    padding: 10px 25px;
+    /*padding: 5px 20px;*/
+    background: linear-gradient(160deg, rgba(255, 165, 0, 0.7), rgba(255, 215, 0, 0.7), rgba(184, 134, 11, 0.7), rgba(255, 69, 0, 0.7)); /*150->160deg //05.22 */
+}
+.element{
+    /*.break-element{*/
+    width: 85%;
+
+}
+.element:hover, .inp:hover{
+    color: yellow ; /*05.22 */
+    transition: all 2s;
+    background: radial-gradient(ellipse,gold,orangered,brown );
+    border-radius: 100px;
+    box-shadow: 0 0 50px 60px brown;
+    font: 800 larger "Malgun Gothic", fantasy;
+}
+.button, .inp {
+    font: 800 larger monospace, fantasy, menu, sans-serif;
+    text-align: center;
+    /*margin: auto;*/
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap; /*!nowrap*/
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
+    transition: all 2s;
+}
+.btn3column{grid-column: span 3; } /** align-self: flex-end; */
+.button-wide{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
+
+}
+.inpRadio{
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    height: 25%;
+}
+
+a { color: black; text-decoration-style: dotted;}
+a:hover{
+    text-decoration-style: wavy;
+    text-transform: uppercase;
+}
+
+.button {
+    z-index: 1;
+    /*width: 60%;!* 05.22 *!*/
+    min-height: 80px;
+    /*margin: auto; !* 10% 25%; //05.22*/
+    padding: 20px 20px; /* 05.22 */
+    border: double 1px orangered;
+    border-radius: 80px;
+    transition: all 10s;
+    box-shadow: 0 0px 0px 0px rgba(215, 81, 13, 0.9);
+    background: radial-gradient(ellipse, rgba(255, 215, 0, 0.7), rgba(255, 69, 0, 0.7), rgba(165, 42, 42, 0.7));
+}
+
+.button:hover{
+    transition: all 2s;
+    border:none;
+    border-bottom: 45px double deeppink;/* dotted white;*/
+    /*box-shadow : 0 -400px 90px 90px yellow;*/
+    box-shadow: 0 -600px 100px 200px rgba(255, 255, 124, 0.9);
+    /*background: transparent;*/
+}
+
+.buttonTop:hover {box-shadow: 0 190vh 100px 200px rgba(255, 255, 124, 0.9);}
+
+.button:hover .btnTxt1{
+    display: block;
+    transition: all 4s;
+    color: dodgerblue;
+    text-shadow: 0px -1px 2px red;
+    font: 800 larger "Times New Roman", sans-serif;
+    letter-spacing: 7px;
+    transform: translateY(50%) translateX(100px) rotate3d(-1.01, 0.05, 0.05, 1.98turn);
+}
+.button:hover .btnTxt2{
+    display: block;
+    color: darkgreen;
+    font: 500 larger "Arial", sans-serif;
+    letter-spacing: -2px;
+    transition: all 4s;
+    transform: rotate(2turn) translateX(-15vw) rotate3d( 1.9, 0.01, -3.5, 2.8turn); //59.5turn
+
+}
+.button:hover .btnTxt3{
+    display: block;
+    color: darkmagenta;
+    font: 500 larger "Tahoma", sans-serif;
+    letter-spacing: -3px;
+    transition: all 4s;
+    rotate: -2turn;
+    transform: translateX(8vw) rotate3d(  0.4, 2.01, 0.4, 2.1turn); //59.5turn
+}
+
+.button:hover .btnTxt4{
+    display: block;
+    color: navy;
+    font: 500 larger "Tahoma", sans-serif;
+    letter-spacing: -3px;
+    transition: all 4s;
+    rotate: -1.1turn;
+    transform: translateX(-4vw) rotate3d(  .1, 5.5, .1, 2.1turn); //59.5turn
+}
+
+button{cursor: pointer;}
+.form1 input, .form1 label, .form1 .inBox{ /**.inBox-для <textarea> */
+    font: 800 medium monospace, fantasy; /* medium larger */
+    text-align: center;
+    width: 80%; /*!!*/
+    padding: 0px 10px ;
+   /* margin: 0px 20px; index.html*/
+    background: transparent ;
+}
+
+.form1 label:hover, .form1 select:hover{
+    cursor: pointer;
+}
+
+input, .inBox{ /* del: button, 05.22*/
+    border: none;
+    border-bottom: 3px dotted darkviolet;
+}
+.errMessage{
+    transition: all 15s;
+    transform: rotateZ(-30deg);
+    color: red;
+    text-shadow: 2px -2px 0px black;
+    position:relative ;
+    padding: 0px 10px;
+    top: -20%;
+    font: italic 800 calc(1vw + 6px) monospace, menu;
+}
+.errMessage{ /* del: .inp:hover 05.22*/
+    text-shadow: none;
+    transition: all 0.5s;
+    transform:translateY(180%) ;
+    color: yellow;
+}
+
+
