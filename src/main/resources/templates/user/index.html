@@ -88,7 +88,7 @@
     </button>
  </form>
 
-<h3>Результаты поиска</h3>
+<h2>Результаты поиска</h2>
 <div class="form1">
 <!--    <h3 th:if="${search_result.isEmpty()}" >Ничего не найдено.</h3>-->
 <div class="element" th:each="product : ${search_result}">
@@ -100,7 +100,7 @@
     <hr>
 </div>
 </div>
-<h3>Доступные товары:</h3>
+<h2>Доступные товары:</h2>
 <div class="form1">
 <div class="element" th:each="product : ${products}" >
     <img th:src="'/img/' + ${product.imageList[0].getFileName()}"   width="50px" >

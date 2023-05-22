@@ -72,7 +72,14 @@ img:hover{ transform: scale(5);}
     align-content: center;
     justify-content: center;
     align-items: stretch;
-
+}
+.button-span{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: stretch;
 }
 .inpRadio{
     display: grid;
@@ -110,7 +117,7 @@ a:hover{
 
 .buttonTop:hover {box-shadow: 0 190vh 100px 200px rgba(255, 255, 124, 0.9);}
 
-.button:hover .btnTxt1{
+.button:hover .btnTxt1, .button:hover .btnTxt5{
     display: block;
     transition: all 4s;
     color: dodgerblue;
@@ -119,7 +126,7 @@ a:hover{
     letter-spacing: 7px;
     transform: translateY(50%) translateX(100px) rotate3d(-1.01, 0.05, 0.05, 1.98turn);
 }
-.button:hover .btnTxt2{
+.button:hover .btnTxt2, .button:hover .btnTxt6{
     display: block;
     color: darkgreen;
     font: 500 larger "Arial", sans-serif;
@@ -128,7 +135,7 @@ a:hover{
     transform: rotate(2turn) translateX(-15vw) rotate3d( 1.9, 0.01, -3.5, 2.8turn); //59.5turn
 
 }
-.button:hover .btnTxt3{
+.button:hover .btnTxt3, .button:hover .btnTxt7{
     display: block;
     color: darkmagenta;
     font: 500 larger "Tahoma", sans-serif;
@@ -138,7 +145,7 @@ a:hover{
     transform: translateX(8vw) rotate3d(  0.4, 2.01, 0.4, 2.1turn); //59.5turn
 }
 
-.button:hover .btnTxt4{
+.button:hover .btnTxt4, .button:hover .btnTxt8{
     display: block;
     color: navy;
     font: 500 larger "Tahoma", sans-serif;
@@ -146,6 +153,22 @@ a:hover{
     transition: all 4s;
     rotate: -1.1turn;
     transform: translateX(-4vw) rotate3d(  .1, 5.5, .1, 2.1turn); //59.5turn
+}
+.button:hover .btnTxt5{
+    color: mediumvioletred;
+    transform: translateY(150%) translateX(100%) rotate3d(1.01, 0.05, 0.05, 2.98turn);
+}
+.button:hover .btnTxt6{
+    color: lawngreen;
+    transform: rotate(8turn) translateX(-10vw) rotate3d( -1.9, 0.01, -3.5, 3.8turn); //59.5turn
+}
+.button:hover .btnTxt7{
+    color: darkcyan;
+    transform: translateX(9vw) rotate3d(  0.4, -2.01, 0.4, 2.7turn); //59.5turn
+}
+.button:hover .btnTxt8{
+    color: darkkhaki;
+    transform: translateX(-5vw) rotate3d(  .1, -5.5, .1, 2.9turn); //59.5turn
 }
 
 button{cursor: pointer;}
@@ -176,7 +199,7 @@ input, .inBox{ /* del: button, 05.22*/
     top: -20%;
     font: italic 800 calc(1vw + 6px) monospace, menu;
 }
-.errMessage{ /* del: .inp:hover 05.22*/
+.inp:hover .errMessage{ /* del: .inp:hover 05.22*/
     text-shadow: none;
     transition: all 0.5s;
     transform:translateY(180%) ;
