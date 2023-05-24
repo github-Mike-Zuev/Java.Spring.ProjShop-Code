@@ -7,19 +7,25 @@
   <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h1>Просмотр статусов заказов</h1>
-<br><br>
-<a th:href="@{/admin}">Вернуться</a>
-<br><br><br><br>
-<hr>
-<br><br>
-<h3>Статусы заказов:</h3>
-<div th:each="status : ${statuses}" >
-  <br>
-  <a th:href="@{/admin/editStatuses/{id}(id=${status.getId()})}" th:text="${status.getName()}"></a>
-  <p th:text="'Описание: ' + ${status.getStatusDescription()}"></p>
-  <hr>
 
+<div class="form1">
+<br>
+  <h1>Просмотр статусов заказов</h1>
+  <a th:href="@{/admin}" class="button button-span buttonTop">Вернуться</a>
+</div>
+<hr>
+
+<h2>Статусы заказов:</h2>
+<div  class="largeForm">
+<div  class="min-line compactForm" th:each="status : ${statuses}" >
+  
+  <p th:text="'Статус: `'+${status.getName()}+'`'"></p>
+
+  <a th:href="@{/admin/editStatuses/{id}(id=${status.getId()})}" >Редактировать статус</a>
+
+  <p th:text="'Описание: ' + ${status.getStatusDescription()}"></p>
+
+</div>
 </div>
 </body>
 </html>

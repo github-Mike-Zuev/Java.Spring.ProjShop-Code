@@ -7,98 +7,157 @@
   <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
+<!--<div class="form1">-->
+  <br><hr><br>
+<a th:href="@{/authentication}"  class="button button-span buttonTop">
+  <!--<a th:href="@{/authentication}">Войти/Зарегистрироваться</a>-->
+  <div class="btnTxt1"><pre>Вой</pre></div>
+  <div class="btnTxt2"><pre>ти </pre></div>
+  <div class="btnTxt8"><pre>/ </pre></div>
+  <div class="btnTxt6"><pre>За</pre></div>
+  <div class="btnTxt3"><pre></pre>ре</div>
+  <div class="btnTxt1"><pre></pre>ги</div>
+  <div class="btnTxt4"><pre></pre>стри</div>
+  <div class="btnTxt5"><pre></pre>ро</div>
+  <div class="btnTxt7"><pre></pre>вать</div>
+  <div class="btnTxt5"><pre></pre>ся</div>
+</a>
+<!--</div>-->
+<br><hr><br>
 <h1>Просмотр продукции</h1>
 <br><br>
-<a th:href="@{/authentication}">Войти/Зарегистрироваться</a>
-<br><br><br><br>
-<form th:method="POST" th:action="@{/product/search}">
-  <h2>Поиск продукции</h2>
-  <label for="search">Поиск в названии</label>
-  <input name="search" type="text" th:value="*{value_search}" id="search">
-  <br><br>
-  <fieldset>
-    <legend>Выбор предела цен: </legend>
-    <label for="minPrice">Минимальная цена</label>
-    <input name="minPrice" type="number" step="0.2" min="0" th:value="*{value_minPrice}" id="minPrice">
-    <label for="maxPrice">Максимальная цена</label>
-    <input name="maxPrice" type="number" step="0.2" min=0 th:value="*{value_maxPrice}" id="maxPrice">
-  </fieldset>
-  <br><br>
-  <fieldset>
-    <br>
-    <legend>Выбор параметров сортировки</legend>
-    <div>
-      <label for="inCategory">Выбор категории товаров: </label>
-      <select name="inCategory" id="inCategory">
+<h2>Поиск продукции</h2>
+<form class="form1" th:method="POST" th:action="@{/product/search}">
+  <fieldset >
+    <legend>Поиск в названии | Выбор категории: </legend>
+    <div  class="inp">
+      <label for="search">Поиск в названии</label>
+      <input name="search" type="text" th:value="*{value_search}" id="search" placeholder="поисковая строка">
+    </div>
+    <div class="inp">
+      <label for="inCategory">Категория товаров: </label>
+      <select class="inBox" name="inCategory" id="inCategory">
         <div th:each="category: ${categories}" >
           <option th:text="${category.getName()}" th:value="${category.getId()}"></option>
         </div>
       </select>
-      <!--            <fieldset>-->
-      <!--                <legend>Выбор категории товаров: </legend>-->
-      <!--                <label for="furniture">Мебель</label>-->
-      <!--                <input type="radio" id="furniture" name="inCategory" value="furniture">-->
-      <!--                <label for="appliances">Бытовая техника</label>-->
-      <!--                <input type="radio" id="appliances" name="inCategory" value="appliances">-->
-      <!--                <label for="clothes">Одежда</label>-->
-      <!--                <input type="radio" id="clothes" name="inCategory" value="clothes">-->
-      <!--            </fieldset>-->
-      <br><br>
-      <label for="ascending_price">Отсортировать по возрастанию цены</label>
-      <input type="radio" id="ascending_price" checked name="sorting" value="ascending_price">
-      <br><br>
-      <label for="descending_price">Отсортировать по убыванию цены</label>
-      <input type="radio" id="descending_price" name="sorting" value="descending_price">
-      <br><br>
-      <input type="submit" value="Найти">
     </div>
   </fieldset>
-</form>
-<br><br>
-<!--<form th:method="POST" th:action="@{/product/search}">-->
-<!--    <fieldset>-->
-<!--        <legend>Выбор параметров сортировки</legend>-->
-<!--        <div>-->
-<!--            <label for="ascending_price">Отсортировать по возрастанию цены</label>-->
-<!--            <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">-->
-<!--            <br><br>-->
-<!--            <label for="descending_price">Отсортировать по убыванию цены</label>-->
-<!--            <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">-->
-<!--            <p>Категория товаров: </p>-->
-<!--            <label for="furniture">Мебель</label>-->
-<!--            <input type="radio" id="furniture" name="contact" value="furniture">-->
-<!--            <label for="appliances">Бытовая техника</label>-->
-<!--            <input type="radio" id="appliances" name="contact" value="appliances">-->
-<!--            <label for="clothes">Одежда</label>-->
-<!--            <input type="radio" id="clothes" name="contact" value="clothes">-->
-<!--            <br><br>-->
-<!--            <input type="submit" value="Найти">-->
-<!--        </div>-->
-<!--    </fieldset>-->
-<!--</form>-->
-<h3>Результат</h3>
-<div th:each="product : ${search_result}">
-  <img th:src="'/img/'+ ${product.imageList[0].getFileName()}"  width="50px">
-  <br>
-  <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-  <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-  <hr>
-</div>
-<hr>
-<br><br>
-<h3>Доступные товары:</h3>
-<div th:each="product : ${products}" >
-  <!--    <p th:text="'Название: '+${product.getTitle()}"></p>-->
-  <!--    <p th:text="'Описание: '+${product.getDescription()}"></p>-->
-  <!--    <p th:text="'Цена: '+${product.getPrice()}"></p>-->
-  <!--    <p th:text="'Город: '+${product.getWarehouse()}"></p>-->
-  <!--    <p th:text="'Продавец: '+${product.getSeller()}"></p>-->
-  <img th:src="'/img/' + ${product.imageList[0].getFileName()}"  width="50px">
-  <br>
-  <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>
-  <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-  <hr>
+  <fieldset>
+    <legend >Выбор диапазона цены: </legend>
+    <div  class="inp">
+      <label for="minPrice">Минимальная цена</label>
+      <input name="minPrice" type="number" step="0.2" min="0" th:value="*{value_minPrice}" id="minPrice">
+    </div>
+    <div  class="inp">
+      <label for="maxPrice">Максимальная цена</label>
+      <input name="maxPrice" type="number" step="0.2" min=0 th:value="*{value_maxPrice}" id="maxPrice">
+    </div>
+  </fieldset>
+  <fieldset>
 
+    <legend >Выбор параметров сортировки</legend>
+    <div  class="inp inpRadio">
+      <input type="radio" id="ascending_price" checked name="sorting" value="ascending_price">
+      <label for="ascending_price">По возрастанию цены</label>
+    </div>
+    <div  class="inp inpRadio">
+      <input type="radio" id="descending_price" name="sorting" value="descending_price">
+      <label for="descending_price">По убыванию цены</label>
+    </div>
+  </fieldset>
+  <!--    <br>-->
+  <button class="button buttonTop button-wide btn3column" type="submit">
+    <div class="btnTxt1">Найти</div>
+    <div class="btnTxt2">товары</div>
+    <div class="btnTxt3">соответствующие</div>
+    <div class="btnTxt4">фильтру</div>
+  </button>
+</form>
+<!--заменено вышеизложенным-->
+<!--<form th:method="POST" th:action="@{/product/search}">-->
+<!--  <h2>Поиск продукции</h2>-->
+<!--  <label for="search">Поиск в названии</label>-->
+<!--  <input name="search" type="text" th:value="*{value_search}" id="search">-->
+<!--    <fieldset>-->
+<!--    <legend>Выбор предела цен: </legend>-->
+<!--    <label for="minPrice">Минимальная цена</label>-->
+<!--    <input name="minPrice" type="number" step="0.2" min="0" th:value="*{value_minPrice}" id="minPrice">-->
+<!--    <label for="maxPrice">Максимальная цена</label>-->
+<!--    <input name="maxPrice" type="number" step="0.2" min=0 th:value="*{value_maxPrice}" id="maxPrice">-->
+<!--  </fieldset>-->
+<!--    <fieldset>-->
+<!--    <legend>Выбор параметров сортировки</legend>-->
+<!--    <div>-->
+<!--      <label for="inCategory">Выбор категории товаров: </label>-->
+<!--      <select name="inCategory" id="inCategory">-->
+<!--        <div th:each="category: ${categories}" >-->
+<!--          <option th:text="${category.getName()}" th:value="${category.getId()}"></option>-->
+<!--        </div>-->
+<!--      </select>-->
+<!--      <label for="ascending_price">Отсортировать по возрастанию цены</label>-->
+<!--      <input type="radio" id="ascending_price" checked name="sorting" value="ascending_price">-->
+<!--      <label for="descending_price">Отсортировать по убыванию цены</label>-->
+<!--      <input type="radio" id="descending_price" name="sorting" value="descending_price">-->
+<!--      <input type="submit" value="Найти">-->
+<!--    </div>-->
+<!--  </fieldset>-->
+<!--</form>-->
+<h2>Результаты поиска</h2>
+<div class="largeForm">
+  <!--    <h3 th:if="${search_result.isEmpty()}" >Ничего не найдено.</h3>-->
+  <div  class="min-line compactForm"  th:each="product : ${search_result}">
+    <img class="imgProd" th:src="'/img/'+ ${product.imageList[0].getFileName()}"  width="50px" >
+    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+    <p th:text="'Категория: ' + ${product.getCategory().name}"></p>
+    <a class="word-break" th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="'Информация о  '+${product.getTitle()}"></a>
+  </div>
 </div>
+
+<!--заменено вышеизложенным-->
+<!--<h3>Результат</h3>-->
+<!--<div th:each="product : ${search_result}">-->
+<!--  <img th:src="'/img/'+ ${product.imageList[0].getFileName()}"  width="50px">-->
+<!--  -->
+<!--  <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>-->
+<!--  <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
+<!--  <hr>-->
+<!--</div>-->
+<hr>
+<h2>Доступные товары:</h2>
+<div class="largeForm">
+  <div  class="min-line compactForm" th:each="product : ${products}" ><!-- class="element" -->
+    <img class="imgProd" th:src="'/img/'+ ${product.imageList[0].getFileName()}"  width="50px" >
+
+    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+    <p th:text="'Категория: ' + ${product.getCategory().name}"></p>
+    <a class="word-break" th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="'Информация о  '+${product.getTitle()}"></a>
+  </div>
+</div>
+<!--<br><hr><br><hr><br><hr><br>-->
+<br><hr><br>
+<a th:href="@{/authentication}"  class="button button-span">
+  <!--<a th:href="@{/authentication}">Войти/Зарегистрироваться</a>-->
+  <div class="btnTxt1"><pre>Вой</pre></div>
+  <div class="btnTxt2"><pre>ти </pre></div>
+  <div class="btnTxt8"><pre>/ </pre></div>
+  <div class="btnTxt6"><pre>За</pre></div>
+  <div class="btnTxt3"><pre></pre>ре</div>
+  <div class="btnTxt1"><pre></pre>ги</div>
+  <div class="btnTxt4"><pre></pre>стри</div>
+  <div class="btnTxt5"><pre></pre>ро</div>
+  <div class="btnTxt7"><pre></pre>вать</div>
+  <div class="btnTxt5"><pre></pre>ся</div>
+</a>
+<!--</div>-->
+<br><hr><br>
+<!--заменено вышеизложенным-->
+<!--<h3>Доступные товары:</h3>-->
+<!--<div th:each="product : ${products}" >-->
+<!--  <img th:src="'/img/' + ${product.imageList[0].getFileName()}"  width="50px">-->
+<!--  <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a>-->
+<!--  <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
+<!--  <hr>-->
+<!--</div>-->
 </body>
 </html>

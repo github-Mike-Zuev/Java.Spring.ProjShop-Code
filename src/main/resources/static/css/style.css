@@ -7,6 +7,8 @@ h1, h2, h3, h4{text-align: center; margin-top: 4%; }
     /*width: 100%; !* .break-element{  *!*/
 }
 .min-line{
+    max-height: 100%;
+    max-width: 100%;
     word-wrap: break-word;
     overflow: auto;
 }
@@ -18,21 +20,20 @@ button, a {  /* 05.23 !!! no solid border-bottom & black lines */
 }
 fieldset{ border-radius: 10px}
 .imgProd {
-    float: left;
     position: absolute;
-    z-index: 0;
-    opacity: 0.9;
+    /*z-index: 0;    opacity: 0.9;*/
     /*transform: translate(150px, -30px);*/
     transform: translate(20vw, 0px); /*20vw, 20px/ 05.24*/
 }
 
 .imgProd:hover {
-    opacity: 1;
+    z-index: 1;
+    /*opacity: 1;*/
     transform: translate(150px, -90px) scale(8);
 }
- .form1, .largeForm{ // .main-grid,
+ .form1, .largeForm{ /* .main-grid, */
     margin: 1% 2% 1%; /*  margin: 5% 5% 20%; //05.22 */
-    box-shadow: coral -5px -10px 30px 20px;   /* //05.22 */
+     padding: 1%;
     border-radius: 5px; /* //05.22 */
     display: grid;
     /*grid-auto-flow: column ;*/
@@ -40,30 +41,27 @@ fieldset{ border-radius: 10px}
     /*overflow: auto; overflow: scroll; // hidden; //no 05.22*/
     text-align: center;
     /*align-items: stretch;*/
-
-
-
-
 }
 .form1{
+    gap: 20px 2%;
     grid-auto-rows: 180px;
     grid-template-columns: repeat(3, 32%);
     /*grid-template-columns: 33% auto;*/
     justify-items: center; /* 05.22 */
     align-items: center;/* 05.21 */
-    gap: 20px 2%;
+    box-shadow: coral -5px -10px 30px 20px;   /* //05.22 */
 }
 
-largeForm{
+.largeForm{
     grid-auto-rows: auto;
-    /*grid-template-columns: repeat(3, 32%);*/
-    grid-template-columns: 33% auto;
-    grid-auto-columns: 33% auto;
+    /*grid-template-columns: repeat(2, 1fr);*/
+    grid-template-columns: repeat(3, 1fr);
     align-items: stretch;
     justify-items: stretch;
-    column-gap: 1%;
+    /*column-gap: 5px;*/
+    box-shadow: gold -5px -10px 30px 20px;   /* //05.22 */
 }
-.compactForm{
+.compactForm, .infoForm{
     margin: 2%;
     padding: 2%;
     text-align: left;
@@ -77,11 +75,44 @@ largeForm{
     align-items: flex-start;
     background: linear-gradient(160deg, rgba(255, 165, 0, 0.5), rgba(255, 215, 0, 0.5), rgba(184, 134, 11, 0.5), rgba(255, 69, 0, 0.5)); /*150->160deg //05.22 */
 }
+.compactForm {
+
+}
 .compactForm:hover{
     border-radius: 20px;
-    color: green ; /*05.22 */
+    color: darkgreen ; /*05.22 */
+    box-shadow: darkorange -5px -5px 25px 15px;
+}
+.infoForm{
+    row-gap: 5px;
+    padding-top: 80px;
+    align-items: stretch;
+    align-content: space-around;
+    font: 400 medium Arial;
+}
+.infoForm .title{
+    transform: translate(0vw, -95px);
+    color: darkcyan;
+    font: bold x-large "Times New Roman" ;
 }
 
+.infoForm p{
+    max-height: 80%;
+    max-width: 80%;
+    word-wrap: break-word;
+    overflow: auto;
+    padding: 10px 25px;
+    /*padding: 5px 20px;*/
+    background: linear-gradient(178deg, rgba(255, 165, 0, 0.7), rgba(255, 215, 0, 0.7), rgba(184, 134, 11, 0.7), rgba(255, 69, 0, 0.7));
+}
+.infoForm img{
+    float: left;
+    position: absolute;
+    transform: translate(40vw, 0px); /*20vw, 20px/ 05.24*/
+}
+.infoForm img:hover {
+    transform: translate( 35vw, -90px) scale(8); /** 150px~11vw */
+}
 .element, .inp{
     font: 300 larger/0.8 "Malgun Gothic", fantasy, monospace;
     padding: 10px 25px;

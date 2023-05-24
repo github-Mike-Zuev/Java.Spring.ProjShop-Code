@@ -6,45 +6,73 @@
   <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h2>Редактирование статусов заказа</h2>
-<form th:method="POST" th:action="@{/admin/editStatuses/{id}(id=${chosenStatus.getId()})}" th:object="${chosenStatus}" >
-  <br><br>
+<h1>Редактирование статусов заказа</h1>
+<form class="form1" th:method="POST" th:action="@{/admin/editStatuses/{id}(id=${chosenStatus.getId()})}" th:object="${chosenStatus}" >
+  <div class="inp">
+    <label for="statusDescription">Описанеие статуса</label>
+    <textarea  class="inBox" name="statusDescription" th:field="*{statusDescription}" id="statusDescription" type=""  placeholder="Описание"></textarea>
+    <div class="errMessage" th:if="${#fields.hasErrors('statusDescription')}" th:errors="*{statusDescription}" ></div>
+  </div>
   <fieldset>
-    <legend>Выбор операции</legend>
-    <label for="new">Добавить</label>
-    <input type="radio" id="new" name="operation" value="new" checked>
-    <label for="edit">Переименовать</label>
-    <input type="radio" id="edit" name="operation" value="edit">
-    <label for="del">Удалить</label>
-    <input type="radio" id="del" name="operation" value="del">
-
+    <legend th:text="'Редактируемый статус: \'' + ${chosenStatus.getName()} +'\', id: '+${chosenStatus.getId()}"></legend>
+  <div class="inp">
+<!--    <p th:text="'Редактируемый статус: \'' + ${chosenStatus.getName()} +'\', id: '+${chosenStatus.getId()}"></p>-->
+    <label for="newName">Новое название статуса</label>
+    <input name="newName" th:field="*{name}" id="newName" type="text">
+    <div class="errMessage" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
+    <div class="errMessage" th:if="${#fields.hasErrors('global')}"> <!-- 'global'- в глоб.массиве ошибок- bindingResult -->
+      <small th:each="err :${#fields.errors('global')}" th:text="${err}"></small>
+    </div>
+  </div>
   </fieldset>
 
-  <br><br>
+  <fieldset>
+    <legend>Выбор операции</legend>
+    <div class="inp inpRadio">
+      <input type="radio" id="new" name="operation" value="new" checked>
+      <label for="new">Добавить</label>
+    </div>
+    <div class="inp inpRadio">
+      <input type="radio" id="edit" name="operation" value="edit">
+      <label for="edit">Переименовать</label>
+    </div>
+    <div class="inp inpRadio">
+      <input type="radio" id="del" name="operation" value="del">
+      <label for="del">Удалить</label>
+    </div>
+  </fieldset>
 <!--  <label for="statusId">Выбор статуса</label>-->
 <!--  <select name="statusId" id="statusId">-->
 <!--    <div th:each="status : ${statuses}">-->
 <!--      <option th:text="${status.getName()}" th:value="${status.getId()}"></option>-->
 <!--    </div>-->
-<!--  </select> <br><br>-->
+<!--  </select> -->
 
-  <!--    <p style="color: red" th:text="${error}"></p>-->
-  <div th:if="${#fields.hasErrors('global')}"> <!-- 'global'- в глоб.массиве ошибок- bindingResult -->
-    <small th:each="err :${#fields.errors('global')}" th:text="${err}" style="color:red"></small>
-  </div>
+<br>
+  <button class="button button-span" type="submit"><!-- buttonTop button-wide btn3column -->
+    <div class="btnTxt6"><pre>Вы</pre></div>
+    <div class="btnTxt8"><pre>пол</pre></div>
+    <div class="btnTxt7"><pre>нить </pre></div>
+    <div class="btnTxt2"><pre>о</pre></div>
+    <div class="btnTxt3"><pre>пе</pre></div>
+    <div class="btnTxt1"><pre>ра</pre></div>
+    <div class="btnTxt4"><pre>ци</pre></div>
+    <div class="btnTxt5"><pre>ю</pre></div>
+  </button>
 
-    <p th:text="'Редактируемый статус: \'' + ${chosenStatus.getName()} +'\', id: '+${chosenStatus.getId()}"></p>
-    <label for="newName">Новое название статуса</label>
-  <input name="newName" th:field="*{name}" id="newName" type="text">
-  <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
-  <br><br>
-  <label for="statusDescription">Описанеие статуса</label>
-  <textarea name="statusDescription" th:field="*{statusDescription}" id="statusDescription" type=""  placeholder="Описание"></textarea>
-  <div style="color: red" th:if="${#fields.hasErrors('statusDescription')}" th:errors="*{statusDescription}" ></div>
-  <br><br>
-  <input type="submit" value="Выполнить">
+  <a href="/admin/statuses" class="button button-span">
+    <!-- Вернуться  -->
+    <div class="btnTxt7"><pre>Н</pre></div>
+    <div class="btnTxt2"><pre>а</pre></div>
+    <div class="btnTxt1"><pre>з</pre></div>
+    <div class="btnTxt3"><pre>а</pre></div>
+    <div class="btnTxt6"><pre>д</pre></div>
+  </a>
+  <!--  <a href="/admin/statuses">Отменить и вернуться к статусам</a>-->
+
+
 </form>
-<br><br>
-<a href="/admin/statuses">Отменить и вернуться а статусам</a>
+
+
 </body>
 </html>
