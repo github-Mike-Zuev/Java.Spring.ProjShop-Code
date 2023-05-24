@@ -8,41 +8,72 @@
 <body>
 <h2>Редактирование строки заказа</h2>
 
-<form th:method="POST" th:action="@{/admin/editOrder/{id}(id=${orderItem.getId()})}" th:object="${orderItem}" >
-    <br><br>
+<form class="form1" th:method="POST" th:action="@{/admin/editOrder/{id}(id=${orderItem.getId()})}" th:object="${orderItem}" >
+    
     <fieldset>
         <legend>Выбор операции</legend>
-        <label for="cancel">Отменить</label>
-        <input type="radio" id="cancel" name="operation" value="cancel" >
-        <br>
-        <label for="changeStatus">Изменить статус</label>
-        <input type="radio" id="changeStatus" name="operation" value="changeStatus" checked>
-        <br>
+        <div class="inp inpRadio">
+
+            <input type="radio" id="cancel" name="operation" value="cancel" >
+            <label for="cancel">Отменить</label>
+        </div>
+        <div class="inp inpRadio">
+            <input type="radio" id="changeStatus" name="operation" value="changeStatus" checked>
+            <label for="changeStatus">Изменить статус</label>
+        </div>
+
 <!--        перенесено в editStatuses:-->
 <!--        <label for="createStatus">Создать новый статус: не реализоано</label>-->
-<!--        <input type="radio" id="createStatus" name="underRealization" value="createStatus"><br>-->
+<!--        <input type="radio" id="createStatus" name="underRealization" value="createStatus">-->
 <!--        <label for="renameStatus">Переименовать статус: не реализоано</label>-->
-<!--        <input type="radio" id="renameStatus" name="underRealization" value="renameStatus"><br>-->
-        <label for="del">Удалить эту строку заказа</label>
-        <input type="radio" id="del" name="operation" value="del">
-
+<!--        <input type="radio" id="renameStatus" name="underRealization" value="renameStatus">-->
+        <div class="inp inpRadio">
+            <input type="radio" id="del" name="operation" value="del">
+        <label for="del">Удалить строку заказа</label>
+        </div>
     </fieldset>
-    <br><br>
+    
 <!--    <label for="newName">Новое название</label>-->
 <!--    <input name="newName" th:field="*{name}" id="newName" type="text">-->
 <!--    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>-->
-<!--    <br><br>-->
-    <label for="newStatus">Выбор нового статуса </label>
-    <select name="newStatus" id="newStatus">
-        <div th:each="status : ${statuses}">
-            <option th:text="${status.getName()}" th:value="${status.getName()}"></option>
+
+<!--    -->
+    <fieldset >
+        <legend>Изменение статуса заказа </legend>
+        <div class="inp">
+            <label for="newStatus">Укажите новый статус:</label>
+            <select class="inBox" name="newStatus" id="newStatus">
+                <div th:each="status : ${statuses}">
+                    <option th:text="${status.getName()}" th:value="${status.getName()}"></option>
+                </div>
+            </select>
         </div>
-    </select> <br><br>
-    <input type="submit" value="Выполнить операцию">
+    </fieldset>
+    <div>
+        <a href="/admin/orders" class="button button-span buttonTop">
+            <!-- Вернуться  -->
+            <div class="btnTxt7"><pre>Н</pre></div>
+            <div class="btnTxt2"><pre>а</pre></div>
+            <div class="btnTxt1"><pre>з</pre></div>
+            <div class="btnTxt3"><pre>а</pre></div>
+            <div class="btnTxt6"><pre>д</pre></div>
+        </a>
+        <button class="button buttonTop button-span" type="submit"><!-- button-wide btn3column -->
+            <div class="btnTxt6"><pre>Вы</pre></div>
+            <div class="btnTxt8"><pre>пол</pre></div>
+            <div class="btnTxt7"><pre>нить </pre></div>
+            <div class="btnTxt2"><pre>о</pre></div>
+            <div class="btnTxt3"><pre>пе</pre></div>
+            <div class="btnTxt1"><pre>ра</pre></div>
+            <div class="btnTxt4"><pre>ци</pre></div>
+            <div class="btnTxt5"><pre>ю</pre></div>
+        </button>
+    </div>
+<!--    <input type="submit" value="Выполнить операцию">-->
 </form>
 
 <hr>
-<h3>Информация о заказе</h3>
+<h2>Информация о заказе</h2>
 <!--Подробности заказа (одна итерация в цикле)-->
 <div th:each="order : ${orderItem}">
     <h3 th:text="'Заказ №' + ${order.getNumber()}"></h3>
@@ -54,7 +85,6 @@
     <p th:text="'Cтатус: ' + ${order.getStatus().getName()}">
     <p th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' ">
 </div>
-<br><br>
-<a href="/admin/orders">Вернуться</a>
+
 </body>
 </html>

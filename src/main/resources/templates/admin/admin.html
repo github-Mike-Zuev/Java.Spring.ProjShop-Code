@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Личный кабинет администратора</title>
@@ -7,42 +7,132 @@
 </head>
 <body>
 <h1>Страница администрирования</h1>
-<form method="post" th:action="@{/logout}">
-    <input type="submit" value="Выйти из кабинета администратора">
+
+<div class="form1">
+<form method="post" th:action="@{/logout} ">
+<!--    <input type="submit" value="Выйти из кабинета администратора">-->
+    <button type="submit" class="button button-span buttonTop"><!-- btn3column  button-wide-->
+        Выйти из кабинета администратора
+<!--            <div class="btnTxt1"><pre>Вый</pre></div>-->
+<!--            <div class="btnTxt2"><pre>ти </pre></div>-->
+<!--            <div class="btnTxt3"><pre>из </pre></div>-->
+<!--            <div class="btnTxt4"><pre>каби</pre></div>-->
+<!--            <div class="btnTxt5"><pre>нета </pre></div>-->
+<!--            <div class="btnTxt6"><pre>адми</pre></div>-->
+<!--            <div class="btnTxt7"><pre>нистра</pre></div>-->
+<!--            <div class="btnTxt8"><pre>тора</pre></div>-->
+
+<!--        <pre class="btnTxt1">Вый</pre>-->
+<!--        <pre class="btnTxt2">ти </pre>-->
+<!--        <pre class="btnTxt3">из </pre>-->
+<!--        <pre class="btnTxt4">каби</pre>-->
+<!--        <pre class="btnTxt5">нета </pre>-->
+<!--        <pre class="btnTxt6">адми</pre>-->
+<!--        <pre class="btnTxt7">нистра</pre>-->
+<!--        <pre class="btnTxt8">тора</pre>-->
+<!--        <pre class="btnTxt1">Вый</pre>-->
+<!--        <pre class="btnTxt2">ти </pre>-->
+<!--        <pre class="btnTxt3">из </pre>-->
+<!--        <pre class="btnTxt4">каби</pre>-->
+<!--        <pre class="btnTxt5">нета </pre>-->
+<!--        <pre class="btnTxt6">адми</pre>-->
+<!--        <pre class="btnTxt7">нистра</pre>-->
+<!--        <pre class="btnTxt8">тора</pre>-->
+    </button>
 </form>
-<br>
-<a href=/admin/personList>Администрирование пользователей</a>
-<br><br>
-<a href=/admin/product/category>Редактировать категории</a>
-<br><br>
-<a href=/admin/statuses>Редактировать статусы заказов</a>
-<br><br>
-<a href=/admin/orders>Редактировать заказы</a>
+
+<!--    <button id="btn1" th:href="@{/admin/personList}" hidden></button>-->
+<!--    <label class="button button-span buttonTop" for="btn1">-->
+<!--        111111-->
+<!--    </label>-->
+
+
+<a href=/admin/personList class="button button-span buttonTop">
+        <div class="btnTxt2"><pre>Админи</pre></div>
+        <div class="btnTxt6"><pre>стрирование</pre></div>
+        <div class="btnTxt5"><pre> пользо</pre></div>
+        <div class="btnTxt8"><pre>вателей</pre></div>
+</a>
+<!--    <button href=/admin/personList class="button button-span buttonTop">-->
+<!--        <div class="btnTxt1"><pre>Админи</pre></div>-->
+<!--        <div class="btnTxt2"><pre>стрирование</pre></div>-->
+<!--        <div class="btnTxt5"><pre> пользо</pre></div>-->
+<!--        <div class="btnTxt6"><pre>вателей</pre></div>-->
+<!--    </button>-->
+
+
+<a class="button button-span buttonTop" href=/admin/product/category>
+<!--    Редактировать категории-->
+        <div class="btnTxt2"><pre>Реда</pre></div>
+        <div class="btnTxt1"><pre>кти</pre></div>
+        <div class="btnTxt5"><pre>ро</pre></div>
+        <div class="btnTxt6"><pre>вать </pre></div>
+        <div class="btnTxt3"><pre>кате</pre></div>
+        <div class="btnTxt7"><pre>го</pre></div>
+        <div class="btnTxt4"><pre>рии</pre></div>
+    </a>
+
+
+
+<a href=/admin/statuses  class="button button-span buttonTop ">
+<!--    Редактировать статусы заказов-->
+    <div class="btnTxt6"><pre>Ре</pre></div>
+    <div class="btnTxt8"><pre>дак</pre></div>
+    <div class="btnTxt7"><pre>тиро</pre></div>
+    <div class="btnTxt2"><pre>вать </pre></div>
+    <div class="btnTxt3"><pre>ста</pre></div>
+    <div class="btnTxt1"><pre>тусы </pre></div>
+    <div class="btnTxt4"><pre>зака</pre></div>
+    <div class="btnTxt5"><pre>зов</pre></div>
+</a>
+
+<a href=/admin/orders  class="button button-span buttonTop">
+<!--    Редактировать заказы-->
+    <div class="btnTxt1"><pre>Редак</pre></div>
+    <div class="btnTxt7"><pre>тиро</pre></div>
+    <div class="btnTxt5"><pre>вать </pre></div>
+    <div class="btnTxt6"><pre>за</pre></div>
+    <div class="btnTxt3"><pre>казы</pre></div>
+</a>
 <!--<form method="get" th:action="@{/admin/orders}"><input type="submit" value="Редактировать заказы"></form>-->
-<br><br>
 
-
-<a href="admin/product/add">Добавить товар</a>
+<a href="admin/product/add"  class="button button-span buttonTop">
+<!--    Добавить товар-->
+    <div class="btnTxt6"><pre>До</pre></div>
+    <div class="btnTxt1"><pre>ба</pre></div>
+    <div class="btnTxt8"><pre>вить </pre></div>
+    <div class="btnTxt5"><pre></pre>то</div>
+    <div class="btnTxt7"><pre></pre>вар</div>
+</a>
+</div>
 <hr>
-<div th:each="product : ${products}">
+<h2>Имеющиеся товары:</h2>
+<div class="largeForm">
+<div class="min-line compactForm" th:each="product : ${products}">
+<!--    <div class="">-->
+    <img class="imgProd" th:src="'/img/' + ${product.getImageList()[0].getFileName()}" alt=""  width="50px">
+    <a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать</a>
+<!--    <span> | </span>-->
+    <a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a>
     <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
-    <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
-    <p th:text="'Описание: ' + ${product.getDescription()}"></p>
-    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
-    <p th:text="'Склад: ' + ${product.getWarehouse()}"></p>
-    <p th:text="'Продавец: ' + ${product.getSeller()}"></p>
+    <p class=""  th:text="'Наименование: ' + ${product.getTitle()}"></p>
+    <p th:text="'Дата: ' + ${#temporals.format(product.getDateTime(), 'dd-MMM-yyyy')}"></p>
+        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+        <p th:text="'Склад: ' + ${product.getWarehouse()}"></p>
+    <p class="" th:text="'Описание: ' + ${product.getDescription()}"></p>
+    <p class="" th:text="'Продавец: ' + ${product.getSeller()}"></p>
 <!--    <div th:each="img : ${product.getImageList()}">-->
 <!--        <img th:src="'/img/' + ${img.getFileName()}" width="250px">-->
 <!--    </div>-->
-    <img th:src="'/img/' + ${product.getImageList()[0].getFileName()}"   width="50px">
-    <br>
-    <a th:href="@{/admin/product/edit/{id}(id=${product.getId()})}">Редактировать товар</a>
-    <span> - | - </span>
-    <a th:href="@{/admin/product/delete/{id}(id=${product.getId()})}">Удалить товар</a>
-    <hr>
+<!--    </div>-->
+    
+
 </div>
-<a href="/product">Смотреть товары</a>
-<br><br>
+</div>
+<a href="/product" class="button button-span">
+    Смотреть товары
+</a>
+
 
 </body>
 </html>

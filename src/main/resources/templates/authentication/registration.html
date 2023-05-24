@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
     <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h3>Регистрация</h3>
-<form method="post" th:action="@{/registration}" th:object="${person}">
+
+<fieldset>
+    <legend><h2>Регистрация</h2></legend>
+<form class="form1" method="post" th:action="@{/registration}" th:object="${person}">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <input type="checkbox" name="check_admin">Администратор
-    <br>
-    <label for="username">Введите логин: </label><br>
-    <input type="text" th:field="*{login}" placeholder="Введите ваш логин" name="username" id="username">
-    <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
-    <br>
-    <label for="password">Введите пароль: </label>
-    <br>
-    <input type="password" th:field="*{password}" placeholder="Введите ваш пароль" name="password" id="password">
-    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-    <br>
-    <input type="submit" value="Зарегистрироваться">
+    <label for="check_box" class="inp inpRadio" >
+        <input type="checkbox" name="check_admin" id="check_box">
+        <label for="check_box" >Администратор</label>
+    </label>
+<!--    <div>-->
+    <div class="inp">
+        <label for="username">Введите логин: </label>
+        <input type="text" th:field="*{login}" placeholder="Введите ваш логин" name="username" id="username">
+        <div class="errMessage" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+    </div>
+    <div class="inp">
+        <label for="password">Введите пароль: </label>
+        <input type="password" th:field="*{password}" placeholder="Введите ваш пароль" name="password" id="password">
+        <div class="errMessage" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    </div>
+<!--    </div>-->
+<br>
+<!--    <a href="/authentication">Выполнить вход</a>-->
+    <a class="button button-wide" href="/authentication"><!-- btn3column buttonTop -->
+        <div class="btnTxt1">Войти</div>
+        <div class="btnTxt2">в</div>
+        <div class="btnTxt3">свой</div>
+        <div class="btnTxt4">аккаунт</div>
+    </a>
+    <button href="/registration" class="button button-span" type="submit" > <!-- btn3column buttonTop  button-wide-->
+        <div class="btnTxt1"><pre>За</pre></div>
+        <div class="btnTxt2"><pre>ре</pre> </div>
+        <div class="btnTxt3"><pre>ги</pre> </div>
+        <div class="btnTxt4"><pre>стри</pre></div>
+        <div class="btnTxt5"><pre>ро</pre></div>
+        <div class="btnTxt6"><pre>ва</pre> </div>
+        <div class="btnTxt7"><pre>ть</pre> </div>
+        <div class="btnTxt8"><pre>ся</pre></div>
+    </button>
+    <!--    <input type="submit" value="Зарегистрироваться">-->
 </form>
-<a href="/authentication">Выполнить вход</a>
+</fieldset>
+
 </body>
 </html>
