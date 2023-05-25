@@ -6,58 +6,96 @@
   <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h3>Добавление новой продукции</h3>
-<form th:method="POST" th:action="@{/admin/product/add}" th:object="${product}"  enctype="multipart/form-data">
-  <hr>
-  <label for="category">Укажите категорию</label>
+<h1>Добавление новой продукции</h1>
+<form class=" infoForm nowrap-flex" th:method="POST" th:action="@{/admin/product/add}" th:object="${product}"  enctype="multipart/form-data">
+  <h2 class="title" >Внесите информацию о новой продукции</h2>
+<!--  <a  class="button inp buttonTop outer-block" href="/admin">Отмена</a>-->
+  <a th:href="@{/admin}"  class="button button-span"><!-- outer-block buttonTop button inp -->
+    <div class="btnTxt8"><pre>О</pre></div>
+    <div class="btnTxt0"><pre>т</pre></div>
+    <div class="btnTxt6"><pre>м</pre></div>
+    <div class="btnTxt3"><pre>е</pre></div>
+    <div class="btnTxt0"><pre>н</pre></div>
+    <div class="btnTxt5"><pre>а</pre></div>
+  </a>
+
+
+    <label for="category">Выберите категорию</label>
   <select name="category" th:field="*{category}"  id="category">
     <div th:each="row : ${category}" >
       <option th:text="${row.getName()}" th:value="${row.getId()}"></option>
     </div>
   </select>
-  <br><br>
-  <label for="title">Введите наименование товара: </label>
-  <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
-  <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 
-  <br>
-  <br>
-  <label for="description">Введите описание товара: </label>
-  <textarea th:field="*{description}" placeholder="Описание" id="description"></textarea>
-  <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+   <div >
+    <label for="title">Введите наименование товара: </label>
+    <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
+<!--    <div class="errMessLine" >********************** </div>-->
+    <div class="errMessLine" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+  </div>
 
-  <br>
-  <br>
-  <label for="price">Введите цену товара: </label>
-  <input type="number" th:field="*{price}" min="0.01" step=0.01 id="price">
-  <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+  <div>
+    <label for="description">Введите описание товара: </label>
+    <textarea th:field="*{description}" placeholder="Описание" id="description"></textarea>
+    <div class="errMessLine" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+  </div>
+  
+  <div>
+    <label for="price">Введите цену товара: </label>
+      <br>
+    <input type="number" th:field="*{price}" min="0.01" step=0.01 id="price">
+    <div class="errMessLine" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+  </div>
 
-  <br>
-  <br>
-  <label for="warehouse">Введите склад: </label>
-  <input type="text" th:field="*{warehouse}" placeholder="Склад" id="warehouse">
-  <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
+  <div>
+    <label for="warehouse">Введите склад: </label>
+      <br>
+    <input type="text" th:field="*{warehouse}" placeholder="Склад" id="warehouse">
+    <div class="errMessLine" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
+  </div>
 
-  <br>
-  <br>
+  <div>
   <label for="seller">Введите данные о продавце: </label>
   <textarea th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
-  <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
+  <div class="errMessLine" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
+  </div>
+  
+  <fieldset class="fSet">
+  <legend style="color: red">Вы можете добавить до 5 фотографий. Первая фотография - будет лицевой</legend>
+    <input class="" type="file" name="file_one">
+    <fieldset>
+      <legend>
+        Дополнительные фотографии:
+      </legend>
+      <input type="file" name="file_two">
+      <input type="file" name="file_three">
+      <input type="file" name="file_four">
+      <input type="file" name="file_five">
+    </fieldset>
 
-  <br>
-  <br>
-  <p style="color: red">Вы можете добавить до 5 фотографий. Первая фотография - обязательна,  т.к она будет главной</p>
-  <input type="file" name="file_one">
-  <input type="file" name="file_two">
-  <input type="file" name="file_three">
-  <input type="file" name="file_four">
-  <input type="file" name="file_five">
-  <br>
-  <br>
-  <hr>
-  <input type="submit" value="Добавить новую продукцию">
-  <br><br>
-  <a href="/admin">Отмена</a>
+
+  </fieldset>
+  
+<hr>
+<!--  <input class="button inp" type="submit" value="Добавить новую продукцию">-->
+  <button class="button button-wide" type="submit"><!--  buttonTop  btn3column -->
+    <div class="btnTxt2">Добавить</div>
+    <div class="btnTxt0">новую</div>
+    <div class="btnTxt3"></div>
+    <div class="btnTxt4">продукцию</div>
+  </button>
+<hr>
+
+<!--  <a  href="/admin">Отмена</a> -->
+  <a th:href="@{/admin}"  class="button button-span"><!-- outer-block buttonTop button inp -->
+    <div class="btnTxt0"><pre>О</pre></div>
+    <div class="btnTxt1"><pre>т</pre></div>
+    <div class="btnTxt2"><pre>м</pre></div>
+    <div class="btnTxt4"><pre>е</pre></div>
+    <div class="btnTxt3"><pre>н</pre></div>
+    <div class="btnTxt0"><pre>а</pre></div>
+  </a>
+
 </form>
 </body>
 </html>

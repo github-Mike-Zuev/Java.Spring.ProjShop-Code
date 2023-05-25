@@ -7,33 +7,76 @@
 </head>
 <body>
 <h2>Изменить категорию товара</h2>
-<form th:method="POST" th:action="@{/admin/product/category}" th:object="${new_category}" >
-  <br><br>
+<form class="form1" th:method="POST" th:action="@{/admin/product/category}" th:object="${new_category}" >
+  
   <fieldset>
     <legend>Выбор операции</legend>
-    <label for="new">Добавить</label>
-    <input type="radio" id="new" name="operation" value="new" checked>
-    <label for="edit">Переименовать</label>
-    <input type="radio" id="edit" name="operation" value="edit">
-    <label for="del">Удалить</label>
-    <input type="radio" id="del" name="operation" value="del">
+    <div class="inp inpRadio">
+      <input type="radio" id="new" name="operation" value="new" checked>
+      <label for="new">Добавить</label>
+    </div>
+    <div class="inp inpRadio">
+      <input type="radio" id="edit" name="operation" value="edit">
+      <label for="edit">Переименовать</label>
+    </div>
+    <div class="inp inpRadio">
+      <input type="radio" id="del" name="operation" value="del">
+      <label for="del">Удалить</label>
+    </div>
+   </fieldset>
+
+  <fieldset >
+    <legend> Выбор категории | Изменение названия категории </legend>
+    <div class="inp">
+      <label for="category">Выбор категории</label>
+      <select class="inBox" name="categoryId" id="category">
+        <div th:each="category : ${categories}">
+          <option th:text="${category.getName()}" th:value="${category.getId()}"></option>
+        </div>
+      </select>
+    </div>
+
+    <div class="inp">
+  <label for="newName">Новое название категории</label>
+  <input name="newName" th:field="*{name}" id="newName" type="text">
+  <div class="errMessage" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
+    </div>
+   <!--    <input name="newName" id="newName" type="text">-->
 
   </fieldset>
-  <br><br>
-  <label for="newName">Новое название</label>
-  <input name="newName" th:field="*{name}" id="newName" type="text">
-  <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" ></div>
-  <!--    <input name="newName" id="newName" type="text">-->
-  <br><br>
-  <label for="category">Выбор категории</label>
-  <select name="categoryId" id="category">
-    <div th:each="category : ${categories}">
-      <option th:text="${category.getName()}" th:value="${category.getId()}"></option>
-    </div>
-  </select> <br><br>
-  <input type="submit" value="Выполнить">
+   <div>
+     <a href="/admin" class="button button-span buttonTop">
+       <!-- Вернуться  -->
+       <div class="btnTxt7"><pre>Н</pre></div>
+       <div class="btnTxt2"><pre>а</pre></div>
+       <div class="btnTxt1"><pre>з</pre></div>
+       <div class="btnTxt3"><pre>а</pre></div>
+       <div class="btnTxt6"><pre>д</pre></div>
+     </a>
+
+    <a href="/product" class="button button-span buttonTop">
+      <!--   <a href="/product">Перейти к товарам</a>  -->
+      <div class="btnTxt7"><pre>Пе</pre></div>
+      <div class="btnTxt2"><pre>рей</pre></div>
+      <div class="btnTxt1"><pre>ти к </pre></div>
+      <div class="btnTxt3"><pre>това</pre></div>
+      <div class="btnTxt6"><pre>рам</pre></div>
+    </a>
+
+
+    <button class="button buttonTop button-span" type="submit"><!-- button-wide btn3column -->
+      <div class="btnTxt6"><pre>Вы</pre></div>
+      <div class="btnTxt8"><pre>пол</pre></div>
+      <div class="btnTxt7"><pre>нить </pre></div>
+      <div class="btnTxt2"><pre>о</pre></div>
+      <div class="btnTxt3"><pre>пе</pre></div>
+      <div class="btnTxt1"><pre>ра</pre></div>
+      <div class="btnTxt4"><pre>ци</pre></div>
+      <div class="btnTxt5"><pre>ю</pre></div>
+    </button>
+  </div>
+
 </form>
-<br><br>
-<a href="/product">Перейти к товарам</a>
+
 </body>
 </html>

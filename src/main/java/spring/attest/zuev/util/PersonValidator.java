@@ -26,8 +26,15 @@ public class PersonValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Person person = (Person)target; /**принимая тип Object down-кастим до Person*/
+
+/** валидация создания нового пользователя */
         if(personService.findByLogin(person) != null){
             errors.rejectValue("login", "", "Данный логин уже занят");
         }
+        /** валидация редактирования - осуществляется в сервисном слое // проверка редактирования одноимённой записи 05.25 //
+         if(personService.findByLogin(person) != null){
+         if(personService.findByLogin(person).getId() != person.getId())
+         errors.rejectValue("login", "", "Данный логин уже занят");
+         }*/
     }
 }

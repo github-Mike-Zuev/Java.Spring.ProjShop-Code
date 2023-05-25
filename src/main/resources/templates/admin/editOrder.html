@@ -74,7 +74,7 @@
 <hr>
 <h2>Информация о заказе </h2>
 <!--Подробности заказа (одна итерация в цикле)-->
-<div class="compactForm infoForm" th:each="order : ${orderItem}">
+<div class="infoForm compactForm" th:each="order : ${orderItem}">
     <h2 class="title" th:text="'Заказ № ' + ${orderItem.getNumber()}"></h2>
     <!--    <h3 class="element" th:text="'Заказ №' + ${order.getNumber()}"></h3>-->
     <img th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"  width="50px">

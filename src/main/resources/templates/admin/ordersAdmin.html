@@ -6,15 +6,36 @@
   <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h3>Администрирование заказов</h3>
-<span> - - - </span>
-<a th:href="@{/admin}">Вернуться в кабинет администратора</a>
+
+<div class="form1">
+  <br>
+  <h1>Администрирование заказов</h1>
+<!--  <a th:href="@{/admin}">Вернуться в кабинет администратора</a>-->
+  <a th:href="@{/admin}" class="button button-span buttonTop">
+    <!-- Вернуться в кабинет администратора  -->
+    <div class="btnTxt5"><pre>Вер</pre></div>
+    <div class="btnTxt4"><pre>нуть</pre></div>
+    <div class="btnTxt2"><pre>ся </pre></div>
+    <div class="btnTxt6"><pre>в </pre></div>
+    <div class="btnTxt8"><pre>ка</pre></div>
+    <div class="btnTxt3"><pre>би</pre></div>
+    <div class="btnTxt1"><pre>нет </pre></div>
+    <div class="btnTxt6"><pre>ад</pre></div>
+    <div class="btnTxt8"><pre>ми</pre></div>
+    <div class="btnTxt5"><pre>ни</pre></div>
+    <div class="btnTxt4"><pre>стра</pre></div>
+    <div class="btnTxt3"><pre>то</pre></div>
+    <div class="btnTxt2"><pre>ра</pre></div>
+
+
+  </a>
+</div>
+
 <!--*************************************-->
 
-<br><br><br><br>
-<form th:method="POST" th:action="@{/admin/orders/search}">
-  <fieldset>
-    <h2>Поиск заказов</h2>
+<h2>Поиск заказов</h2>
+<form class="form1" th:method="POST" th:action="@{/admin/orders/search}">
+<!--  <fieldset>-->
 <!--     ++++++++++  добавить фильтры аналогично product/product ++++++++++++++++++++++++++++-->
 <!--        <legend>Выбор предела цен: </legend>-->
 <!--        <label for="minPrice">Минимальная цена</label>-->
@@ -22,10 +43,10 @@
 <!--        <label for="maxPrice">Максимальная цена</label>-->
 <!--        <input name="maxPrice" type="number" step="0.2" min=0 th:value="*{value_maxPrice}" id="maxPrice">-->
 <!--    </fieldset>-->
-<!--    <br><br>-->
+<!--    -->
 <!--    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
 <!--<fieldset>-->
-<!--  <br>-->
+<!--  -->
 <!--  <legend>Выбор параметров сортировки</legend>  <div>-->
 <!--    ======== сделать аналогично категориям product/product - для выбора по пользователю ======-->
 <!--    <label for="inCategory">Выбор категории товаров: </label>-->
@@ -35,56 +56,68 @@
 <!--      </div>-->
 <!--    </select>-->
 <!--  ===========================================================================================-->
-<!--    <br><br>-->
+<!--    -->
 <!--    <label for="ascending_price">Отсортировать по возрастанию цены</label>-->
 <!--    <input type="radio" id="ascending_price" checked name="sorting" value="ascending_price">-->
-<!--    <br><br>-->
+<!--    -->
 <!--    <label for="descending_price">Отсортировать по убыванию цены</label>-->
 <!--    <input type="radio" id="descending_price" name="sorting" value="descending_price">-->
-<!--    <br><br>-->
-  <label for="search">Поиск в названии-номере по последним символам</label>
+<!--    -->
+  <fieldset>
+    <legend>Поиск в номере по последним символам </legend>
+    <div  class="inp">
+  <label for="search">Поиск в названии:</label>
   <input name="search" type="text" th:value="*{value_search}" id="search">
-  <br><br>
-    <input type="submit" value="Найти по фильтру">
-<!--  </div>-->
+    </div>
 </fieldset>
+  <!--    <input type="submit" value="Найти по фильтру">-->
+  <button class="button buttonTop  button-wide" type="submit"><!-- button-wide btn3column -->
+    <div class="btnTxt1">Найти</div>
+    <div class="btnTxt2">заказы</div>
+    <div class="btnTxt3">по</div>
+    <div class="btnTxt4">фильтру</div>
+  </button>
 </form>
-<br><br>
 
-<h3>Результат:</h3>
-<div th:each="order : ${search_result}">
-  <h3>
-    <a th:href="@{/admin/editOrder/{id}(id=${order.getId()})}" th:text="'Заказ №' + ${order.getNumber()}"></a>
-  </h3>
 
-  <img th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"   width="50px">
-  <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}">
-  <p th:text="'Количество: ' + ${order.getCount()}">
-  <p th:text="'Сумма: ' + ${order.getPrice()} +'руб.' ">
+<h2>Результат:</h2>
+<div class="largeForm">
+<div  class="min-line compactForm"  th:each="order : ${search_result}">
+  <p th:text="'Cтатус: ' + ${order.getStatus().getName()}"></p>
+  <p th:text="'Количество: ' + ${order.getCount()}"></p>
+  <p th:text="'Сумма: ' + ${order.getPrice()} +' руб.' "></p>
   <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
-  <p th:text="'Cтатус: ' + ${order.getStatus().getName()}">
-  <p th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' ">
+  <b><a th:href="@{/admin/editOrder/{id}(id=${order.getId()})}" th:text="'Заказ №' + ${order.getNumber()}"></a></b>
+  <img class="imgProd" th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"   width="50px">
+  <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>
+  <p th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' "></p>
   <hr>
 </div>
-
+</div>
 <!--************************************-->
-<h2>Все заказы:</h2>
 <hr>
-
-<div th:each="order : ${orders}">
-  <br>
-<!--  <h3 th:text="'Заказ №' + ${order.getNumber()}"></h3>-->
-  <h3>
-    <a th:href="@{/admin/editOrder/{id}(id=${order.getId()})}" th:text="'Заказ №' + ${order.getNumber()}"></a>
-  </h3>
-
-  <img th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"  width="50px">
-  <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}">
-  <p th:text="'Количество: ' + ${order.getCount()}">
-  <p th:text="'Сумма: ' + ${order.getPrice()} +'руб.' ">
+<h2>Все заказы:</h2>
+<div class="largeForm">
+<div  class="min-line compactForm" th:each="order : ${orders}">
+  <p th:text="'Cтатус: ' + ${order.getStatus().getName()}"></p>
+  <p th:text="'Количество: ' + ${order.getCount()}"></p>
+  <p th:text="'Сумма: ' + ${order.getPrice()} +' руб.' "></p>
   <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
-  <p th:text="'Cтатус: ' + ${order.getStatus().getName()}">
-  <p th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' ">
+  <b><a th:href="@{/admin/editOrder/{id}(id=${order.getId()})}" th:text="'Заказ №' + ${order.getNumber()}"></a></b>
+  <img class="imgProd" th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"   width="50px">
+  <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>
+  <p th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' "></p>
+
+<!--  <h3 th:text="'Заказ №' + ${order.getNumber()}"></h3>-->
+<!--  <h3><a th:href="@{/admin/editOrder/{id}(id=${order.getId()})}" th:text="'Заказ №' + ${order.getNumber()}"></a></h3>-->
+<!--  <img th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"  width="50px">-->
+<!--  <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>-->
+<!--  <p th:text="'Количество: ' + ${order.getCount()}"></p>-->
+<!--  <p th:text="'Сумма: ' + ${order.getPrice()} +'руб.' "></p>-->
+<!--  <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>-->
+<!--  <p th:text="'Cтатус: ' + ${order.getStatus().getName()}"></p>-->
+<!--  <p th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' "></p>-->
+</div>
 </div>
 </body>
 </html>

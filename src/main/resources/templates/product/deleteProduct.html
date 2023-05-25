@@ -6,49 +6,51 @@
   <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h3>Подтвердите удаление продукта</h3>
+<h2>Подтвердите удаление продукта</h2>
 <br>
-<form th:method="POST" th:action="@{/admin/product/delete/{id}(id=${product.getId()})}" th:object="${product}" >
-  <br>
+<a  class="button inp buttonTop outer-block" href="/admin">Отмена</a>
+
+<form class=" infoForm nowrap-flex" th:method="POST" th:action="@{/admin/product/delete/{id}(id=${product.getId()})}" th:object="${product}" >
+
+
+  <label class="title" for="title">Наименование товара: </label>
+  <input class="title"  type="text" th:field="*{title}" placeholder="Наименование" id="title">
+  <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+
 <!--  <p th:text="'Категория: ' + ${product.category.name}"></p>-->
-  <br>
+
   <label for="cat">Категория товара: </label>
   <input  type="text" th:field="*{category}" placeholder="Наименование" id="cat">
 
-  <br>
-  <label for="title">Наименование товара: </label>
-  <input  type="text" th:field="*{title}" placeholder="Наименование" id="title">
-  <div style="color:red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 
-  <br>
-  <br>
+  <img class="imgProd" th:src="'/img/'+ ${product.imageList[0].getFileName()}"  width="50px" >
+  
   <label for="description">Описание товара: </label>
   <textarea  th:field="*{description}" placeholder="Описание" id="description"></textarea>
   <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
 
-  <br>
-  <br>
+  
+  
   <label for="price">Цена товара: </label>
   <input  type="number" th:field="*{price}"  step=0.01 id="price">
   <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
 
-  <br>
-  <br>
+  
+  
   <label for="warehouse">Склад: </label>
   <input  type="text" th:field="*{warehouse}" placeholder="Склад" id="warehouse">
   <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
 
-  <br>
-  <br>
+  
+  
   <label for="seller">Данные о продавце: </label>
   <textarea  th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
   <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
 
-  <br>
-  <br>
-  <input type="submit" value="Удалить продукт">
-  <br><br>
-  <a href="/admin">Отмена</a>
+
+  
+  <input class="button inp" type="submit" value="Удалить продукт">
+  
 </form>
 </body>
 </html>

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
 import spring.attest.zuev.models.Person;
 import spring.attest.zuev.repositories.PersonRepository;
 
@@ -34,6 +35,21 @@ public class PersonService {
         return person_opt.orElse(null);
     }
 /** 2 сохранение зарегистрированного польз-ля */
+    /** проверка редактирования логина польз-ля одноимённой записи */
+   public void validateLogin(Person person,  Errors errors){
+
+      String loginPers =  person.getLogin();
+      if (loginPers == null) { /** Логин не может быть пустым */
+          errors.rejectValue("login", "", "Логин не может быть пустым");
+      } else if (loginPers.length()<5) { /** Логин должен быть от 5 до 100 символов */
+          errors.rejectValue("login", "", "Логин должен быть от 5 до 100 символов");
+      } else if(findByLogin(person) != null){ /** проверка доступности логина */
+           if(findByLogin(person).getId() != person.getId()) {/** проверка редактирования не одноимённой записи */
+               System.out.println("==personService.hasLoginError==>ERROR");
+               errors.rejectValue("login", "", "Данный логин уже занят");
+           }
+       }
+   }
     @Transactional
     /** регистрация с ролъю пользователя */
     public void register(Person person){

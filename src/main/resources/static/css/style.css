@@ -2,6 +2,8 @@ body{    background: linear-gradient(45deg, rgb(255, 165, 0), rgb(255, 215, 0), 
 *{margin: 0;}
 h1, h2, h3, h4{text-align: center; margin-top: 4%; }
 .overflow-auto{overflow: auto;}
+.legend-center{font-size: larger; word-spacing: 5vw; text-align: center; padding-top: 20px;}
+.outer-block{margin: 2%; padding: 1%;}
 .word-break{
     word-wrap: break-word;
     /*width: 100%; !* .break-element{  *!*/
@@ -11,6 +13,20 @@ h1, h2, h3, h4{text-align: center; margin-top: 4%; }
     max-width: 100%;
     word-wrap: break-word;
     overflow: auto;
+}
+.infoBlock{
+    max-height: 100%;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow: auto;
+    margin: 2%;
+    padding: 2%;
+    box-shadow: cadetblue -1px -1px 9px 1px;
+}
+.infoBlock:hover{
+    border-radius: 20px;
+    color: teal ; /*05.25 */
+    box-shadow: yellowgreen -5px -5px 25px 15px;
 }
 button, a {  /* 05.23 !!! no solid border-bottom & black lines */
     border: none;
@@ -30,6 +46,15 @@ fieldset{ border-radius: 10px}
     z-index: 1;
     /*opacity: 1;*/
     transform: translate(150px, -90px) scale(8);
+}
+.imgLeft{
+    float: left;
+    padding: 5px;
+}
+.imgLeft:hover{
+    position: absolute;
+    z-index: 2;
+    transform: translate(-20px, -120px) scale(8);
 }
  .form1, .largeForm{ /* .main-grid, */
     margin: 1% 2% 1%; /*  margin: 5% 5% 20%; //05.22 */
@@ -90,13 +115,19 @@ fieldset{ border-radius: 10px}
     align-content: space-around;
     font: 400 medium Arial;
 }
+.infoForm:hover{
+    border-radius: 20px;
+    color: teal ; /*05.25 */
+    box-shadow: yellowgreen -5px -5px 25px 15px;
+}
+.nowrap-flex{  flex-wrap: nowrap !important; }
 .infoForm .title{
     transform: translate(0vw, -95px);
     color: darkcyan;
     font: bold x-large "Times New Roman" ;
 }
 
-.infoForm p{
+.infoForm p, .infoForm input, .infoForm textarea, .infoForm select, .infoForm  .fSet {
     max-height: 80%;
     max-width: 80%;
     word-wrap: break-word;
@@ -104,6 +135,12 @@ fieldset{ border-radius: 10px}
     padding: 10px 25px;
     /*padding: 5px 20px;*/
     background: linear-gradient(178deg, rgba(255, 165, 0, 0.7), rgba(255, 215, 0, 0.7), rgba(184, 134, 11, 0.7), rgba(255, 69, 0, 0.7));
+}
+.infoForm .button{
+     margin: auto; /** max-width: 70%; */
+}
+.infoForm div input, .infoForm div textarea,.infoForm div option{
+    width: 100%;
 }
 .infoForm img{
     float: left;
@@ -192,7 +229,6 @@ a:hover{
     /*min-height: 50px;*/
     /*margin: auto; !* 10% 25%; //05.22*/
     padding: 10px 10px; /* 05.22 */
-    /*border: double 1px orangered; !**!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! *!*/
     border-radius: 80px;
     transition: all 10s;
     box-shadow: 0 0px 0px 0px rgba(215, 81, 13, 0.9);
@@ -201,7 +237,6 @@ a:hover{
 
 .button:hover{
     transition: all 2s;
-    /*border:none;  // ?????????????????????? black-border?????????????????????????????????*/
     border-bottom: 45px double deeppink;/* dotted white;*/
     /*box-shadow : 0 -400px 90px 90px yellow;*/
     box-shadow: 0 -600px 100px 200px rgba(255, 255, 124, 0.9);
@@ -260,12 +295,12 @@ a:hover{
     transform: translateX(9vw) rotate3d(  0.4, -2.01, 0.4, 2.7turn); //59.5turn
 }
 .button:hover .btnTxt8{
-    color: darkkhaki;
+    color: firebrick;
     transform: translateX(-5vw) rotate3d(  .1, -5.5, .1, 2.9turn); //59.5turn
 }
 
 button{cursor: pointer;}
-.form1 input, .form1 label, .form1 .inBox{ /**.inBox-для <textarea> */
+.form1 input, .form1 label, .inBox{ /**.inBox-для <textarea> */
     font: 800 medium monospace, fantasy; /* medium larger */
     text-align: center;
     width: 80%; /*!!*/
@@ -282,7 +317,7 @@ input, .inBox{ /* del: button, 05.22*/
     border: none;
     border-bottom: 3px dotted darkviolet;
 }
-.errMessage{
+.errMessage{ /*, .errMessLine */
     transition: all 15s;
     transform: rotateZ(-30deg);
     color: red;
@@ -298,5 +333,17 @@ input, .inBox{ /* del: button, 05.22*/
     transform:translateY(60px) ; /* 180% //05.23 */
     color: yellow;
 }
-
+.errMessLine{   /*  05.25 */
+    position:absolute ; /* relative */
+    transition: 15s all; /*  0.2s; */
+    transform: translate(25vw, -30px) rotateZ(-3deg) skew(30deg) scale(2.5) ; /*  */
+    color: red;
+    font: italic 800 calc(1vw + 6px) monospace, menu;
+}
+/*.infoForm div:hover .errMessLine*/
+.infoForm div:hover .errMessLine{
+    transition: all 0.5s;
+    transform:translate(50vw, -60px) ; /* 180%  */
+    color: darkmagenta;
+}
 

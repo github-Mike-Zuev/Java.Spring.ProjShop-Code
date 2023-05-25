@@ -6,17 +6,28 @@
   <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h3>Товар</h3>
-<p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
-<p th:text="'Наименование: ' + ${product.getTitle()}"></p>
-<p th:text="'Описание: ' + ${product.getDescription()}"></p>
-<p th:text="'Цена: ' + ${product.getPrice()}"></p>
-<p th:text="'Склад: ' + ${product.getWarehouse()}"></p>
-<p th:text="'Продавец: ' + ${product.getSeller()}"></p>
 
-<div th:each="img : ${product.getImageList()}">
-  <img th:src="'/img/' + ${img.getFileName()}" width="50px">
+<!--<hr>-->
+<div class="form1">
+    <br>
+<h1>Просмотр информации о товаре</h1>
+    <a class="button buttonTop" th:href="@{/backFromInfo}">Назад</a>
 </div>
-<a th:href="@{/backFromInfo}">Вернуться</a>
+<br>
+<div class="largeForm">
+<p class="infoBlock " th:text="'Наименование: ' + ${product.getTitle()}"></p>
+<p class="infoBlock " th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
+    <p class="infoBlock " th:text="'Дата: ' +${#temporals.format(product.getDateTime(), 'dd-MMM-yyyy')}"></p>
+<p class="infoBlock " th:text="'Описание: ' + ${product.getDescription()}"></p>
+<p class="infoBlock " th:text="'Цена: ' + ${product.getPrice()}"></p>
+<p class="infoBlock " th:text="'Склад: ' + ${product.getWarehouse()}"></p>
+<p class="infoBlock " th:text="'Продавец: ' + ${product.getSeller()}"></p>
+<div class="infoBlock ">
+<div th:each="img : ${product.getImageList()}">
+  <img th:class="imgLeft" th:src="'/img/' + ${img.getFileName()}" width="50px">
+</div>
+</div>
+    <a class="button" th:href="@{/backFromInfo}">Вернуться</a>
+</div>
 </body>
 </html>

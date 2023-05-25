@@ -12,6 +12,7 @@ import spring.attest.zuev.enumm.PersonRoles;
 import spring.attest.zuev.models.*;
 import spring.attest.zuev.services.*;
 import spring.attest.zuev.util.CategoryValidator;
+import spring.attest.zuev.util.PersonValidator;
 import spring.attest.zuev.util.ProductValidator;
 import spring.attest.zuev.util.StatusesValidator;
 
@@ -30,6 +31,7 @@ public class AdminController {
     private final StatusesValidator statusesValidator;
     private final ProductValidator productValidator;
     private final CategoryValidator categoryValidator;
+    private  final PersonValidator personValidator;
 
     private final ProductService productService;
     private final CategoryService categoryService;
@@ -37,10 +39,11 @@ public class AdminController {
     private final StatusesService statusesService;
     private final PersonService personService;
     @Autowired
-    public AdminController(StatusesValidator statusesValidator, ProductValidator productValidator, CategoryValidator categoryValidator, ProductService productService, CategoryService categoryService, OrderService orderService, StatusesService statusesService, PersonService personService) {
+    public AdminController(StatusesValidator statusesValidator, ProductValidator productValidator, CategoryValidator categoryValidator, PersonValidator personValidator, ProductService productService, CategoryService categoryService, OrderService orderService, StatusesService statusesService, PersonService personService) {
         this.statusesValidator = statusesValidator;
         this.productValidator = productValidator;
         this.categoryValidator = categoryValidator;
+        this.personValidator = personValidator;
         this.productService = productService;
         this.categoryService = categoryService;
         this.orderService = orderService;
@@ -299,10 +302,19 @@ public class AdminController {
 
     @PostMapping("/infoPerson/{id}")
     /** Администрирование пользователей - редактирование пользователя */
-    public String infoPerson(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult, Model model, @PathVariable("id")int personId){
+    public String infoPerson(@ModelAttribute("person")Person person, BindingResult bindingResult, Model model, @PathVariable("id")int personId){ // @Valid Person person
+/**валидация  @ModelAttribute("person") @Valid Person person  и
+ * валидация personValidator.validate(person, bindingResult);
+ *         model.addAttribute("person", personService.getPersonById(personId));// валидация осуществляется в сервисном слое// */
+    personService.validateLogin(person, bindingResult);
+
+         if(bindingResult.hasErrors()){
+          return   "/admin/infoPerson";
+         }
+
 /** %%  заменено @ModelAttribute("person") - public String infoPerson(Model model, @PathVariable("id")int personId, @RequestParam("newRole") String newRole){    */
 /** %%  пароль не перезадать-ошибка. попробовать passwordEncoder.encode(person.getPassword())- System.out.println("==>"+ person.getPassword()); if(bindingResult.hasErrors()){  model.addAttribute("person", personService.getPersonById(personId));  return "/admin/infoPerson";  } */
-        //model.addAttribute("person", personService.getPersonById(personId));
+
         personService.changePerson(person);
         return "/admin/infoPerson";
     }

@@ -51,7 +51,7 @@ public class StatusesValidator implements Validator {
                 for ( Order order : orderService.getAllOrders()){ /** проверка наличия по id */
                     if ( order.getStatus().getId() == chosenStatusId){
                         //System.out.println(order.getStatus().getName()+"==Удаление==> " + statuses.getName()); //тест
-                        errors.rejectValue("name","","Удаляемый статус ещё используется в заказах");
+                        errors.rejectValue("name","","Удаляемый статус  используется в заказе № "+order.getNumber());
                         break;
                     }
                     //System.out.println(order.getStatus().getName()+"==Перебор==> " + statuses.getName()); //тест

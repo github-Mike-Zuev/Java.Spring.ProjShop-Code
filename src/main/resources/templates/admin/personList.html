@@ -6,19 +6,29 @@
     <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h1>Администрирование пользователей</h1>
-<span> - - - </span>
-<a th:href="@{/admin}">Вернуться в кабинет администратора</a>
-
-<div th:each="person : ${personList}" >
+<div class="form1">
     <br>
+<h1>Администрирование пользователей</h1>
+
+    <a th:href="@{/admin}" class="button button-span buttonTop">
+        <!-- Вернуться в кабинет администратора  -->
+        <div class="btnTxt1"><pre>Н</pre></div>
+        <div class="btnTxt6"><pre>а</pre></div>
+        <div class="btnTxt2"><pre>з</pre></div>
+        <div class="btnTxt7"><pre>а</pre></div>
+        <div class="btnTxt5"><pre>д</pre></div>
+    </a>
+</div>
+<h2>Список пользователей:</h2>
+<div  class="largeForm">
+<div  class="min-line compactForm" th:each="person : ${personList}" >
+
     <p th:text="'ID: ' + ${person.getId()}"></p>
     <a th:href="@{/admin/infoPerson/{id}(id=${person.getId()})}" th:text=" 'LOGIN: ' + ${person.getLogin()}"></a>
     <p th:text="'РОЛЬ: ' + ${person.getRole() }"></p>
-    <hr>
+<!--    <hr>-->
 
 </div>
-
-
+</div>
 </body>
 </html>

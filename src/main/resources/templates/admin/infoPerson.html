@@ -6,18 +6,28 @@
   <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
+<div class="largeForm">
+  <br>
 <h1>Редактирование данных пользователя</h1>
+<!--Вернуться-->
+<a th:href="@{/admin/personList}" class="button button-span buttonTop">
+  <!-- Вернуться в кабинет администратора  -->
+  <div class="btnTxt1"><pre>Н</pre></div>
+  <div class="btnTxt6"><pre>а</pre></div>
+  <div class="btnTxt2"><pre>з</pre></div>
+  <div class="btnTxt7"><pre>а</pre></div>
+  <div class="btnTxt5"><pre>д</pre></div>
+</a>
+</div>
 
-<br>
-<p th:text="'ID: ' + ${person.getId()}"></p>
-<a th:href="@{/admin/infoPerson/{id}(id=${person.getId()})}" th:text=" 'LOGIN: ' + ${person.getLogin()}"></a>
-<p th:text="'РОЛЬ: ' + ${person.getRole() }"></p>
-<hr>
-
-
-
+<fieldset class="outer-block" >
+<legend class="legend-center">
+<span th:text="'ID:' + ${person.getId()}"></span>
+<span th:text="' LOGIN:' + ${person.getLogin()}"></span>
+<span th:text="' РОЛЬ:' + ${person.getRole() }"></span>
+</legend>
 <!--          -->
-<form th:method="post" th:action="@{/admin/infoPerson/{id}(id=${person.getId()})}" th:object="${person}" >
+<form class="form1" th:method="post" th:action="@{/admin/infoPerson/{id}(id=${person.getId()})}" th:object="${person}" >
 
   <div  class="inp">
     <label for="login">ЛОГИН: </label>
@@ -25,28 +35,27 @@
     <div  class="errMessage" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
   </div>
 
-
+<div class="inp">
 <label for="newRole">Выберите роль: </label>
-<select id="newRole" th:name="newRole"  th:field="*{role}">
+<select class="inBox" id="newRole" th:name="newRole"  th:field="*{role}">
   <option th:each="enum : ${T(spring.attest.zuev.enumm.PersonRoles).values()}"
           th:text="${enum.name()}"    th:value = "${enum}">
   </option>
 </select>
-<br>
+</div>
+
 <!--  <label for="password">hash-пароль: </label>-->
 <!--  <input type="text" th:field="*{password)}"  id="password">-->
-  <label for="idPeron">ID: </label>
-  <input type="text" th:field="*{id}"  id="idPeron">
-  <br>
-  <button class="button" type="submit">
-    <div class="btnTxt1">Записать</div>
-    <div class="btnTxt2">все</div>
-    <div class="btnTxt3">изменения</div>
+<!--  <label for="idPeron">ID: </label>-->
+<!--  <input type="text" th:field="*{id}"  id="idPeron">-->
+  <button class="button button-span " type="submit">
+    <div class="btnTxt2"><pre>Записать </pre></div>
+    <div class="btnTxt8"><pre>все </pre></div>
+    <div class="btnTxt6"><pre>изменения</pre></div>
   </button>
-
 </form>
+</fieldset>
 
 
-<a th:href="@{/admin/personList}">Вернуться</a>
 </body>
 </html>
