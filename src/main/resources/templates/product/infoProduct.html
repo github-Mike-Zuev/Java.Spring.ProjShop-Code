@@ -19,7 +19,7 @@
 <p class="infoBlock " th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
     <p class="infoBlock " th:text="'Дата: ' +${#temporals.format(product.getDateTime(), 'dd-MMM-yyyy')}"></p>
 <p class="infoBlock " th:text="'Описание: ' + ${product.getDescription()}"></p>
-<p class="infoBlock " th:text="'Цена: ' + ${product.getPrice()}"></p>
+<p class="infoBlock " th:text="'Цена: ' + ${product.getPrice()}+' руб.'"></p>
 <p class="infoBlock " th:text="'Склад: ' + ${product.getWarehouse()}"></p>
 <p class="infoBlock " th:text="'Продавец: ' + ${product.getSeller()}"></p>
 <div class="infoBlock ">
@@ -27,7 +27,22 @@
   <img th:class="imgLeft" th:src="'/img/' + ${img.getFileName()}" width="50px">
 </div>
 </div>
-    <a class="button" th:href="@{/backFromInfo}">Вернуться</a>
+
+
+    <a th:href="@{/backFromInfo}" class="button button-span buttonTop">
+        <!--    <a class="button" th:href="@{/backFromInfo}">Вернуться</a>-->
+        <div class="btnTxt0"><pre>В</pre></div>
+        <div class="btnTxt6"><pre>е</pre></div>
+        <div class="btnTxt2"><pre>р</pre></div>
+        <div class="btnTxt4"><pre>н</pre></div>
+        <div class="btnTxt1"><pre>у</pre></div>
+        <div class="btnTxt5"><pre>т</pre></div>
+        <div class="btnTxt7"><pre>ь</pre></div>
+        <div class="btnTxt6"><pre>с</pre></div>
+        <div class="btnTxt0"><pre>я</pre></div>
+
+    </a>
+
 </div>
 </body>
 </html>

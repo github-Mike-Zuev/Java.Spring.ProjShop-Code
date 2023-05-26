@@ -94,7 +94,7 @@
 <div  class="min-line compactForm"  th:each="product : ${search_result}">
     <img class="imgProd" th:src="'/img/'+ ${product.imageList[0].getFileName()}"  width="50px" >
     <a th:href="@{/cart/add/{id}(id=${product.getId()})}">Добавить продукт в корзину</a>
-    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+    <p th:text="'Цена: ' + ${product.getPrice()}+' руб.'"></p>
     <p th:text="'Категория: ' + ${product.getCategory().name}"></p>
     <a class="word-break" th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="'Информация о  '+${product.getTitle()}"></a>
 </div>
@@ -104,7 +104,7 @@
 <div  class="min-line compactForm" th:each="product : ${products}" ><!-- class="element" -->
     <img class="imgProd" th:src="'/img/'+ ${product.imageList[0].getFileName()}"  width="50px" >
     <a th:href="@{/cart/add/{id}(id=${product.getId()})}">Добавить продукт в корзину</a>
-    <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+    <p th:text="'Цена: ' + ${product.getPrice()}+' руб.'"></p>
     <p th:text="'Категория: ' + ${product.getCategory().name}"></p>
     <a class="word-break" th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="'Информация о  '+${product.getTitle()}"></a>
 </div>

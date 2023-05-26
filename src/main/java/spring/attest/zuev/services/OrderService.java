@@ -1,10 +1,13 @@
 package spring.attest.zuev.services;
 
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import spring.attest.zuev.models.*;
 import spring.attest.zuev.repositories.OrderRepository;
+import spring.attest.zuev.security.PersonDetails;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +19,12 @@ public class OrderService {
 
     public OrderService(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
+    }
+    /** определение текущего обслуживаемого пользователя  */
+    public Person getCurrentPerson() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        return personDetails.getPerson();
     }
     /** получение всех заказов  */
    public List<Order> getAllOrders(){
@@ -52,7 +61,7 @@ public class OrderService {
       /** заказы  по окончанию номера-названия String number */
        return orderRepository.findAllByNumberEndingWith(search);
 
-
+/** это упрощённый аналог фильтра-поиска продуктов */
 //        /** Если нет поисковой строки **/
 //        if (search.isEmpty()){
 //            /** поиск по всем категориям (public void initFirstCategory()=> name='Все категории'*/
@@ -86,7 +95,12 @@ public class OrderService {
 //                }    }   }
 
     }
+    /** передача количества заказов(уникальных номеров) клиента*/
+public int totalNumbersOrder(){
+    Person currentPerson = getCurrentPerson();
+      return orderRepository.totalNumbersOrder(currentPerson.getId());
 
+}
 
 
 

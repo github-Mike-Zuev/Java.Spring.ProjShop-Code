@@ -22,7 +22,11 @@ public class Cart {
 
     public Cart() {
     }
-
+    /** метод для вывода в html-шаблон корзины - суммы по строке*/
+    public String getSum(Product product){
+        float sum = product.getPrice() * quantity;
+        return String.format("%.2f",sum);
+    }
     public int getId() {
         return id;
     }

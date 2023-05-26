@@ -1,27 +1,20 @@
 package spring.attest.zuev.controllers;
 
-import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import spring.attest.zuev.models.Category;
 import spring.attest.zuev.models.Person;
-import spring.attest.zuev.models.Product;
 import spring.attest.zuev.security.PersonDetails;
 import spring.attest.zuev.services.CategoryService;
+import spring.attest.zuev.services.OrderService;
 import spring.attest.zuev.services.PersonService;
 import spring.attest.zuev.services.ProductService;
 import spring.attest.zuev.util.PersonValidator;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class UserController {
@@ -31,12 +24,14 @@ public class UserController {
     final PersonService personService;
     private final ProductService productService;
     private final CategoryService categoryService;
+    private final OrderService orderService ;
 @Autowired
-    public UserController(PersonValidator personValidator, PersonService personService, ProductService productService, CategoryService categoryService) {
+    public UserController(PersonValidator personValidator, PersonService personService, ProductService productService, CategoryService categoryService, OrderService orderService) {
         this.personValidator = personValidator;
         this.personService = personService;
     this.productService = productService;
     this.categoryService = categoryService;
+    this.orderService = orderService;
 }
 
     @GetMapping("/authentication")
@@ -88,7 +83,6 @@ public class UserController {
          }*/
         /**Ниже: получаем объект аутентификации - > с помощью Spring SecurityContextHolder обращаемся к контексту и на нем вызываем метод аутентификации.
         * Из потока для текущего пользователя мы получаем объект, который был положен в сессию после аутентификации */
-
 
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
@@ -170,7 +164,10 @@ public class UserController {
     @GetMapping("/orders")
     /** просмотр заказов */
     public String orderUser(Model model){
+
         model.addAttribute("orders", productService.orderUser());
+        /** передача количества заказов(уникальных номеров) клиента*/
+        model.addAttribute("totalNumbersOrder",orderService.totalNumbersOrder());
         return "/user/orders";
     }
 }

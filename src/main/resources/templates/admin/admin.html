@@ -117,7 +117,7 @@
     <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
     <p class=""  th:text="'Наименование: ' + ${product.getTitle()}"></p>
     <p th:text="'Дата: ' + ${#temporals.format(product.getDateTime(), 'dd-MMM-yyyy')}"></p>
-        <p th:text="'Цена: ' + ${product.getPrice()}"></p>
+        <p th:text="'Цена: ' + ${product.getPrice()}+' руб.'"></p>
         <p th:text="'Склад: ' + ${product.getWarehouse()}"></p>
     <p class="" th:text="'Описание: ' + ${product.getDescription()}"></p>
     <p class="" th:text="'Продавец: ' + ${product.getSeller()}"></p>

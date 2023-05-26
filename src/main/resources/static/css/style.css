@@ -56,6 +56,17 @@ fieldset{ border-radius: 10px}
     z-index: 2;
     transform: translate(-20px, -120px) scale(8);
 }
+.imgCenter {
+    position: absolute;
+    opacity: 0.5;
+    transform: translate(20vw, 100px);
+}
+
+.imgCenter:hover {
+    z-index: 1;
+    opacity: 1;
+    transform: translate(150px, -90px) scale(8);
+}
  .form1, .largeForm{ /* .main-grid, */
     margin: 1% 2% 1%; /*  margin: 5% 5% 20%; //05.22 */
      padding: 1%;
@@ -84,7 +95,10 @@ fieldset{ border-radius: 10px}
     align-items: stretch;
     justify-items: stretch;
     /*column-gap: 5px;*/
-    box-shadow: gold -5px -10px 30px 20px;   /* //05.22 */
+
+}
+.largeForm:hover {
+    box-shadow: rgba(135, 206, 250, 0.6) -5px -10px 30px 20px; /* gold//05.22 */
 }
 .compactForm, .infoForm{
     margin: 2%;
@@ -184,6 +198,10 @@ fieldset{ border-radius: 10px}
 .button{
     border: none;
     border-bottom: double 3px orangered;
+}
+.btn-center{
+    margin: auto;
+    /*text-align: center;*/
 }
 .btn3column{grid-column: span 3; } /** align-self: flex-end; */
 .button-wide{
@@ -335,6 +353,7 @@ input, .inBox{ /* del: button, 05.22*/
 }
 .errMessLine{   /*  05.25 */
     position:absolute ; /* relative */
+    max-width: 30vw;
     transition: 15s all; /*  0.2s; */
     transform: translate(25vw, -30px) rotateZ(-3deg) skew(30deg) scale(2.5) ; /*  */
     color: red;

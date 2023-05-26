@@ -6,27 +6,45 @@
   <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h2>Ваша корзина</h2>
-<h4 th:text="'Общая сумма заказа: '+ ${totalCart} +' руб.'"></h4>
-<a href="/order/create">Оформить заказ</a>
-<span> - - - </span>
-<a th:href="@{/index}">Вернуться на страницу пользователя</a>
-<br><br>
-<div th:each="product : ${cartProducts}">
-  <hr>
-  <img th:src="'/img/'+ ${product.imageList[0].getFileName()}" width="50px" >
-  <br>
-  <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getCategory().getName()}+' / '+ ${product.getTitle()}"></a>
-  <p th:text="'Цена: '+${product.getPrice()}"></p>
+<div class="infoForm ">
+<h1>Ваша корзина</h1>
+<h3 th:text="'Общая сумма заказа: '+ ${totalCart} +' руб.'"></h3>
+<a class="button buttonTop " th:href="@{/index}">Вернуться на страницу пользователя</a>
+  <a class="button buttonTop" href="/order/create">Оформить заказ</a>
+</div>
+<h2>Товары корзины:</h2>
+
+
+<div class="largeForm">
+<div class="min-line compactForm" th:each="product : ${cartProducts}">
+  <img class="imgProd"  th:src="'/img/'+ ${product.imageList[0].getFileName()}" width="50px" >
+
+
+
+  <p th:text="'Категория: ' + ${product.getCategory().getName()}"></p>
+  <p class=""  th:text="'Наименование: ' + ${product.getTitle()}"></p>
+
+
+<!--  <p th:text="'Дата: ' + ${#temporals.format(product.getDateTime(), 'dd-MMM-yyyy')}"></p>-->
+<!--  <p th:text="'Цена: ' + ${product.getPrice()}"></p>-->
+<!--  <p th:text="'Склад: ' + ${product.getWarehouse()}"></p>-->
+<!--  <p class="" th:text="'Описание: ' + ${product.getDescription()}"></p>-->
+<!--  <p class="" th:text="'Продавец: ' + ${product.getSeller()}"></p>-->
+
+<hr>
+  <p th:text="'Цена: '+${product.getPrice()}+' руб.'"></p>
   <div th:each="cartItem : ${cartCurrent}">
     <div th:if="${cartItem.getProductId()==product.getId()}">
       <p th:text="'Количество: '+ ${cartItem.getQuantity()}"></p>
-      <p th:text="'Сумма: '+ (${cartItem.getQuantity()} * ${product.getPrice()})"></p>
+      <p th:text="'Сумма: '+ ${cartItem.getSum(product)}+' руб.'"></p>
     </div>
   </div>
   <a th:href="@{/cart/del/{id}(id=${product.getId()})}">Удалить из корзины</a>
 </div>
-<br><br><hr>
+  <a class="button button-span btn-center " href="/order/create">Оформить заказ</a>
 
+</div>
+<hr>
+<a class="button button-wide outer-block"  th:href="@{/index}">Вернуться на страницу пользователя</a>
 </body>
 </html>

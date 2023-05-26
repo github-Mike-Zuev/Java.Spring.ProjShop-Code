@@ -6,19 +6,29 @@
   <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h3>Заказы</h3>
-<span> - - - </span>
-<a th:href="@{/index}">Вернуться в кабинет клиента</a>
+<div class="infoForm">
+  <a class="button buttonTop" th:href="@{/index}">Вернуться в кабинет клиента</a>
+  <h1>Ваши заказы</h1>
 
-<div th:each="order : ${orders}">
-  <h3 th:text="'Заказ №' + ${order.getNumber()}"></h3>
-  <img th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"   width="50px" >
+
+<h2 th:text="'Всего заказов: ' +${totalNumbersOrder}"></h2>
+  <h2 th:text="'Количество наименований в заказах: ' +${orders.size()}"></h2>
+</div>
+<br>
+<h2>Все заказы:</h2>
+<div class="largeForm">
+<div  class="min-line compactForm" th:each="order : ${orders}">
+  <b th:text="'Заказ №' + ${order.getNumber()}"></b>
+
+  <img class="imgCenter" th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"   width="50px" >
   <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}">
   <p th:text="'Количество: ' + ${order.getCount()}">
   <p th:text="'Сумма: ' + ${order.getPrice()} +'руб.' ">
   <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
   <p th:text="'Cтатус: ' + ${order.getStatus().getName()}">
   <p th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' ">
+</div>
+  <a class="button btn3column " th:href="@{/index}">Вернуться в кабинет клиента</a>
 </div>
 </body>
 </html>
