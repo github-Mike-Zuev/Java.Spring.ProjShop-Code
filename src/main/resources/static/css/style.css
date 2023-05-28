@@ -44,7 +44,7 @@ fieldset{ border-radius: 10px}
 
 .imgProd:hover {
     z-index: 1;
-    /*opacity: 1;*/
+    opacity: 1;
     transform: translate(150px, -90px) scale(8);
 }
 .imgLeft{
@@ -54,6 +54,7 @@ fieldset{ border-radius: 10px}
 .imgLeft:hover{
     position: absolute;
     z-index: 2;
+    opacity: 1;
     transform: translate(-20px, -120px) scale(8);
 }
 .imgCenter {
@@ -162,6 +163,7 @@ fieldset{ border-radius: 10px}
     transform: translate(40vw, 0px); /*20vw, 20px/ 05.24*/
 }
 .infoForm img:hover {
+    opacity: 1;
     transform: translate( 35vw, -90px) scale(8); /** 150px~11vw */
 }
 .element, .inp{
@@ -365,4 +367,30 @@ input, .inBox{ /* del: button, 05.22*/
     transform:translate(50vw, -60px) ; /* 180%  */
     color: darkmagenta;
 }
+/**************************************/
+@media (max-width:850px) {
+    h1, h2, h3, h4{top:0}
+}
+@media (max-width:550px) {
+    img{opacity: 0.3;}
+    .form1, .largeForm{
+        display: block;
+    }
+    /*.inpRadio{}*/
 
+        /*.fieldset-outer{*/
+    /*    grid-template-columns: max-content;*/
+    /*}*/
+    /*fieldset{*/
+    /*    grid-auto-flow: row;*/
+    /*    grid-template-columns:repeat(1, min-content);*/
+
+    /*    gap: 1vh 2vw;*/
+    /*    margin: auto;*/
+    /*}*/
+    /*fieldset button{*/
+    /*    grid-row: span 3;*/
+    /*    grid-column: span 1;*/
+    /*}*/
+
+}

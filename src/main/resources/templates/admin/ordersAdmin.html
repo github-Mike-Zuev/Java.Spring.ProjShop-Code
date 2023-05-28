@@ -89,6 +89,7 @@
   <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
   <b><a th:href="@{/admin/editOrder/{id}(id=${order.getId()})}" th:text="'Заказ №' + ${order.getNumber()}"></a></b>
   <img class="imgProd" th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"   width="50px">
+  <p th:text="'Категория: ' + ${order.getProduct().category.name}">
   <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>
   <p th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' "></p>
   <hr>
@@ -105,6 +106,7 @@
   <p th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
   <b><a th:href="@{/admin/editOrder/{id}(id=${order.getId()})}" th:text="'Заказ №' + ${order.getNumber()}"></a></b>
   <img class="imgProd" th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}"   width="50px">
+  <p th:text="'Категория: ' + ${order.getProduct().category.name}">
   <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}"></p>
   <p th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' "></p>
 

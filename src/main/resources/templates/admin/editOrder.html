@@ -81,6 +81,7 @@
     <p  class="inp"  th:text="'Количество: ' + ${order.getCount()}">
     <p class="inp"  th:text="'Cтатус: ' + ${order.getStatus().getName()}">
     <p class="element" th:text="'Дата заказа: ' + ${#temporals.format(order.getDateTime(), 'dd-MMM-yyyy')}"></p>
+    <p th:text="'Категория: ' + ${order.getProduct().category.name}">
     <p  th:text="'Наименование: ' + ${order.getProduct().getTitle()}">
     <p  th:text="'Сумма: ' + ${order.getPrice()} +'руб.' ">
     <p class="element" th:text="'Общая сумма заказа: ' + ${order.getTotalPrice()} +'руб.' ">
